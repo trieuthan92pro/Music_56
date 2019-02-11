@@ -1,6 +1,11 @@
 package com.example.soundcloud.splash_screen;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +21,9 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        initView();
+        mPresenter = new SplashPresenter(this);
+        start();
     }
 
     @Override
@@ -28,15 +36,12 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         mTextViewAppName.setText(getResources().getString(appName));
     }
 
-    @Override
-    public void setPresenter(SplashContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+    private void initView() {
+        mImageViewAppIcon = findViewById(R.id.img_icon);
+        mTextViewAppName = findViewById(R.id.text_app_name);
     }
 
-    private static <T> T checkNotNull(T reference) {
-        if (reference == null) {
-            throw new NullPointerException();
-        }
-        return reference;
+    private void start() {
+        mPresenter.start();
     }
 }

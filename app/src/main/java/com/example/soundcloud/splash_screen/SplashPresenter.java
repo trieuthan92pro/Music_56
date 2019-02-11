@@ -1,10 +1,11 @@
 package com.example.soundcloud.splash_screen;
 
+import com.example.soundcloud.R;
 
 public class SplashPresenter implements SplashContract.Presenter {
     private SplashContract.View mView;
 
-    public SplashPresenter(SplashContract.View view){
+    public SplashPresenter(SplashContract.View view) {
         mView = view;
     }
 
@@ -18,11 +19,11 @@ public class SplashPresenter implements SplashContract.Presenter {
 
     @Override
     public int getIconId() {
-        return 0;
+        return R.drawable.soundcloud;
     }
 
     @Override
     public int getAppName() {
-        return 0;
+        return R.string.app_name;
     }
 }

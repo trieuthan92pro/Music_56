@@ -6,7 +6,7 @@ import com.example.soundcloud.BaseView;
 
 public interface SplashContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View {
 
         void showSoundCloudIcon(int iconId);
 
