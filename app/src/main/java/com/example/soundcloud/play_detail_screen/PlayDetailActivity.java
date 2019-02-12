@@ -22,6 +22,7 @@ public class PlayDetailActivity extends AppCompatActivity {
     private ImageButton mImageButtonSkipToNext;
     private ImageButton mImageButtonPlayPause;
     private ImageButton mImageButtonRepeat;
+    private ImageButton mImageButtonBack;
     private SeekBar mSeekBar;
 
     @Override
@@ -45,6 +46,7 @@ public class PlayDetailActivity extends AppCompatActivity {
         mImageButtonShuffle = findViewById(R.id.img_button_shuft);
         mImageButtonSkipToNext = findViewById(R.id.img_button_next);
         mImageButtonSkipToPrevious = findViewById(R.id.img_button_prev);
+        mImageButtonBack = findViewById(R.id.image_button_back);
         mSeekBar = findViewById(R.id.seek_bar);
     }
 }
