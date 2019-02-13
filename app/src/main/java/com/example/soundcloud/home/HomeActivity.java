@@ -1,4 +1,4 @@
-package com.example.soundcloud.home_screen;
+package com.example.soundcloud.home;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity implements HomeScreenContrac
 
     public void setTabIcon(TabInfo[] tabInfos){
         for (int i = 0; i < tabInfos.length; i++) {
-            mTabLayout.getTabAt(i).setIcon(tabInfos[i].getTabIconId());
+            mTabLayout.getTabAt(i).setIcon(tabInfos[i].getImageResource());
         }
     }
 

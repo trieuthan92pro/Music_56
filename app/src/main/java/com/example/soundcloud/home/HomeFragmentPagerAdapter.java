@@ -1,4 +1,4 @@
-package com.example.soundcloud.home_screen;
+package com.example.soundcloud.home;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.soundcloud.data.TabInfo;
-import com.example.soundcloud.discover_screen.DiscoverFragment;
+import com.example.soundcloud.discover.DiscoverFragment;
 
 public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     private final int PAGE_COUNT = 3;

@@ -1,4 +1,4 @@
-package com.example.soundcloud.splash_screen;
+package com.example.soundcloud.splash;
 
 import android.os.Bundle;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.soundcloud.R;
-import com.example.soundcloud.home_screen.HomeActivity;
+import com.example.soundcloud.home.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity implements SplashContract.View {
     private TextView mTextViewAppName;

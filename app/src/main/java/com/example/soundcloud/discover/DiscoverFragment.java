@@ -1,4 +1,4 @@
-package com.example.soundcloud.discover_screen;
+package com.example.soundcloud.discover;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

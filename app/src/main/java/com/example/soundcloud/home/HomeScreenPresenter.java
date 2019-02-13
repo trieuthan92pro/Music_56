@@ -1,4 +1,4 @@
-package com.example.soundcloud.home_screen;
+package com.example.soundcloud.home;
 
 import com.example.soundcloud.R;
 import com.example.soundcloud.data.TabInfo;

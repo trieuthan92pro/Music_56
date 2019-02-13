@@ -1,4 +1,4 @@
-package com.example.soundcloud.play_detail_screen;
+package com.example.soundcloud.play_detail;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
