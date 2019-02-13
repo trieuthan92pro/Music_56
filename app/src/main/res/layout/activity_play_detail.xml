@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_background_purple_light"
 
-    tools:context=".play_detail_screen.PlayDetailActivity">
+    tools:context=".play_detail.PlayDetailActivity">
 
     <ImageView
         android:id="@+id/img_artwork"

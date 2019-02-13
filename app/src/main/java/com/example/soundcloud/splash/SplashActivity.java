@@ -1,11 +1,13 @@
-package com.example.soundcloud.splash_screen;
+package com.example.soundcloud.splash;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.soundcloud.R;
+import com.example.soundcloud.home.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity implements SplashContract.View {
     private TextView mTextViewAppName;
@@ -19,6 +21,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         initView();
         mPresenter = new SplashPresenter(this);
         start();
+        goToHomeScreen();
     }
 
     @Override
@@ -38,5 +41,11 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
     private void start() {
         mPresenter.start();
+    }
+
+    private void goToHomeScreen() {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
     }
 }

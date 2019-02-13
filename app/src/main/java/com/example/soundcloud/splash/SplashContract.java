@@ -1,8 +1,7 @@
-package com.example.soundcloud.splash_screen;
+package com.example.soundcloud.splash;
 
 
 import com.example.soundcloud.BasePresenter;
-import com.example.soundcloud.BaseView;
 
 public interface SplashContract {
 

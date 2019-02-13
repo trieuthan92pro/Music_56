@@ -1,4 +1,4 @@
-package com.example.soundcloud.splash_screen;
+package com.example.soundcloud.splash;
 
 import com.example.soundcloud.R;
 
