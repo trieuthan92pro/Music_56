@@ -3,21 +3,15 @@ package com.example.soundcloud.data;
 public class TabInfo {
     private int mTextResource;
     private int mImageResource;
+    private int mImageResourceActive;
 
     public TabInfo() {
     }
 
-    public TabInfo(int textResource, int imageResource) {
+    public TabInfo(int textResource, int imageResource, int imageResourceActive) {
         mTextResource = textResource;
         mImageResource = imageResource;
-    }
-
-    public int getTabTextId() {
-        return mTextResource;
-    }
-
-    public void setTabTextId(int tabTextId) {
-        mTextResource = tabTextId;
+        mImageResourceActive = imageResourceActive;
     }
 
     public int getImageResource() {
@@ -26,5 +20,21 @@ public class TabInfo {
 
     public void setImageResource(int imageResource) {
         mImageResource = imageResource;
+    }
+
+    public int getTextResource() {
+        return mTextResource;
+    }
+
+    public void setTextResource(int textResource) {
+        mTextResource = textResource;
+    }
+
+    public int getImageResourceActive() {
+        return mImageResourceActive;
+    }
+
+    public void setImageResourceActive(int imageResourceActive) {
+        mImageResourceActive = imageResourceActive;
     }
 }

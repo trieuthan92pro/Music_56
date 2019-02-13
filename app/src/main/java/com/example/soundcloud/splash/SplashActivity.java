@@ -2,7 +2,6 @@ package com.example.soundcloud.splash;
 
 import android.os.Bundle;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,11 +44,8 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     }
 
     private void goToHomeScreen() {
-        new Handler().postDelayed(() -> {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.anim_in, R.anim.anim_out);
             finish();
-        }, 3000);
     }
 }

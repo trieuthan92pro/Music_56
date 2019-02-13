@@ -17,9 +17,9 @@ public class HomeScreenPresenter implements HomeScreenContract.Presenter {
     @Override
     public TabInfo[] getTabsInfo() {
         TabInfo[] tabInfos = new TabInfo[] {
-                new TabInfo(R.string.my_music_string, R.drawable.icon_my_music_deactive),
-                new TabInfo(R.string.discover_string, R.drawable.icon_discover_deactive),
-                new TabInfo(R.string.favorite_string, R.drawable.icon_favorite_deactive)
+                new TabInfo(R.string.my_music_string, R.drawable.icon_my_music_deactive, R.drawable.icon_my_music_active),
+                new TabInfo(R.string.discover_string, R.drawable.icon_discover_deactive, R.drawable.icon_discover_active),
+                new TabInfo(R.string.favorite_string, R.drawable.icon_favorite_deactive, R.drawable.icon_favorite_active)
         };
         return tabInfos;
     }

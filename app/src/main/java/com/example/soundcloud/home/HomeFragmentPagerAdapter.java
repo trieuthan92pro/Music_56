@@ -10,16 +10,16 @@ import com.example.soundcloud.data.TabInfo;
 import com.example.soundcloud.discover.DiscoverFragment;
 
 public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
-    private final int PAGE_COUNT = 3;
+    private static final int PAGE_COUNT = 3;
     private TabInfo[] mTabInfos;
-    private HomeScreenContract.Presenter mPresenter;
-    private Context context;
+    private Context mContext;
 
-    public HomeFragmentPagerAdapter(Context context, FragmentManager fm) {
+    public HomeFragmentPagerAdapter(Context context,
+                                    FragmentManager fm,
+                                    TabInfo[] tabInfos) {
         super(fm);
-        this.context = context;
-        mPresenter = new HomeScreenPresenter();
-        mTabInfos = mPresenter.getTabsInfo();
+        mContext = context;
+        mTabInfos = tabInfos;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-            TabInfo tabInfo = mTabInfos[position];
-            return context.getString(tabInfo.getTabTextId());
+        TabInfo tabInfo = mTabInfos[position];
+        return mContext.getString(tabInfo.getTextResource());
     }
 }
