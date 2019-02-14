@@ -1,21 +1,26 @@
 package com.example.soundcloud.data.source;
 
-import com.example.soundcloud.data.Song;
+import com.example.soundcloud.data.model.Song;
 
 import java.util.List;
 
 public interface SongDataSource {
-    interface LoadSongCallback {
 
+    interface LoadSongCallback {
         void onSongsLoaded(List<Song> songs);
+
+        void onDataNotAvailable(Exception e);
+    }
+
+    interface GetSongCallback {
+        void onSongLoaded(Song song);
 
         void onDataNotAvailable();
     }
 
-    interface GetSongCallback {
+    interface RemoteDataSource {
+        void getSongByGenre(String genre, int limit, LoadSongCallback callback);
 
-        void onSongLoaded(Song song);
-
-        void onDataNotAvailable();
+        void getSearchSong(String searchKey, int limit, LoadSongCallback callback);
     }
 }
