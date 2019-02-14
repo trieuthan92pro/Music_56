@@ -23,11 +23,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     private Fragment mMyMusicFragment;
     private Fragment mFavoriteFragment;
 
-    private interface TAB{}
-
-    public HomeFragmentPagerAdapter(Context context,
-                                    FragmentManager fm,
-                                    TabInfo[] tabInfos) {
+    public HomeFragmentPagerAdapter(Context context, FragmentManager fm, TabInfo[] tabInfos) {
         super(fm);
         mContext = context;
         mTabInfos = tabInfos;
@@ -38,7 +34,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int tabPosition) {
-        switch (tabPosition){
+        switch (tabPosition) {
             case POSITION_MYMUSIC_TAB:
                 return mMyMusicFragment;
 
@@ -49,7 +45,7 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
                 return mFavoriteFragment;
 
             default:
-                 return new Fragment();
+                return new Fragment();
         }
     }
 
