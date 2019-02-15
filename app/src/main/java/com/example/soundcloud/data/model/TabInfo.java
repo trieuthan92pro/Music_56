@@ -1,4 +1,4 @@
-package com.example.soundcloud.data;
+package com.example.soundcloud.data.model;
 
 public class TabInfo {
     private int mTextResource;
