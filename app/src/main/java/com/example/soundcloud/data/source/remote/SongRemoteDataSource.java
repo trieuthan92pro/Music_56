@@ -25,6 +25,6 @@ public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
                 + DataHelper.API_KEY
                 + DataHelper.SoundCloud.PARAM_LIMIT
                 + limit;
-        new GetRemoteDataAsyncTask(callBack).execute(url);
+        new RemoteDataHelperAsyncTask(callBack).execute(url);
     }
 }

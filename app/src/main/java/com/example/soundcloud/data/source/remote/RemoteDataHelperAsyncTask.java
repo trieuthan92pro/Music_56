@@ -10,11 +10,11 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.List;
 
-public class GetRemoteDataAsyncTask extends AsyncTask<String, Void, List<Song>> {
+public class RemoteDataHelperAsyncTask extends AsyncTask<String, Void, List<Song>> {
     private SongDataSource.LoadSongCallback mCallback;
     private Exception mException;
 
-    public GetRemoteDataAsyncTask(SongDataSource.LoadSongCallback callback) {
+    public RemoteDataHelperAsyncTask(SongDataSource.LoadSongCallback callback) {
         mCallback = callback;
     }
 
