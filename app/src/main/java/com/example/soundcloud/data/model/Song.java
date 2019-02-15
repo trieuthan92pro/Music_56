@@ -38,15 +38,15 @@ public class Song implements Parcelable {
     }
 
     public Song(JSONObject jsonObject) throws JSONException {
-        mId = jsonObject.getInt(SongJSonKey.ID);
-        mTitle = jsonObject.getString(SongJSonKey.TITLE);
-        mArtworkUrl = jsonObject.getString(SongJSonKey.ARTWORK_URL);
-        mDuration = jsonObject.getInt(SongJSonKey.DURATION);
-        mGenre = jsonObject.getString(SongJSonKey.GENRE);
-        mDownloadable = jsonObject.getBoolean(SongJSonKey.DOWNLOADABLE);
-        mDownloadURL = jsonObject.getString(SongJSonKey.DOWNLOAD_URL);
-        mArtist = SongLoaderUtils.getPublisherMetadataItem(jsonObject, SongJSonKey.ARTIST);
-        mAlbum = SongLoaderUtils.getPublisherMetadataItem(jsonObject, SongJSonKey.ALBUM);
+        mId = jsonObject.getInt(JSonKey.ID);
+        mTitle = jsonObject.getString(JSonKey.TITLE);
+        mArtworkUrl = jsonObject.getString(JSonKey.ARTWORK_URL);
+        mDuration = jsonObject.getInt(JSonKey.DURATION);
+        mGenre = jsonObject.getString(JSonKey.GENRE);
+        mDownloadable = jsonObject.getBoolean(JSonKey.DOWNLOADABLE);
+        mDownloadURL = jsonObject.getString(JSonKey.DOWNLOAD_URL);
+        mArtist = SongLoaderUtils.getPublisherMetadataItem(jsonObject, JSonKey.ARTIST);
+        mAlbum = SongLoaderUtils.getPublisherMetadataItem(jsonObject, JSonKey.ALBUM);
     }
 
     protected Song(Parcel in) {
@@ -181,7 +181,7 @@ public class Song implements Parcelable {
         mAlbum = album;
     }
 
-    public class SongJSonKey {
+    public class JSonKey {
         public static final String COLLECTION = "collection";
         public static final String TRACK = "track";
         public static final String ID = "id";

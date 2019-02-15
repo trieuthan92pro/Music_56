@@ -19,7 +19,7 @@ import java.util.List;
 public class SongLoaderUtils {
     private static final String UNKNOWN = "Unknown";
 
-    static String getJSONFromAPI(String urlString) throws IOException {
+    public static String getJSONFromAPI(String urlString) throws IOException {
         HttpURLConnection httpURLConnection;
         URL url = new URL(urlString);
         httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -43,10 +43,10 @@ public class SongLoaderUtils {
     public static List<Song> getSongFromJSONString(String jsonString) throws JSONException {
         List<Song> songs = new ArrayList<>();
         JSONObject root = new JSONObject(jsonString);
-        JSONArray songsCollection = root.getJSONArray(Song.SongJSonKey.COLLECTION);
+        JSONArray songsCollection = root.getJSONArray(Song.JSonKey.COLLECTION);
         for (int i = 0; i < songsCollection.length(); i++) {
             JSONObject jsonObject = songsCollection.getJSONObject(i)
-                    .getJSONObject(Song.SongJSonKey.TRACK);
+                    .getJSONObject(Song.JSonKey.TRACK);
             Song song = new Song(jsonObject);
             song.setSongType(SongType.TYPE_ONLINE);
             songs.add(song);
@@ -56,7 +56,7 @@ public class SongLoaderUtils {
 
     public static String getPublisherMetadataItem(JSONObject jsonObject, String key) {
         try {
-            String string = jsonObject.getJSONObject(Song.SongJSonKey.PUBLISHER_METADATA)
+            String string = jsonObject.getJSONObject(Song.JSonKey.PUBLISHER_METADATA)
                     .getString(key);
             return string;
         } catch (JSONException e) {
