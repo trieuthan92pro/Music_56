@@ -1,7 +1,6 @@
 package com.example.soundcloud.data.model;
 
 public class DataHelper {
-    public static final String API_KEY = "AJ4pxoFBchG36bmDxD5VwWzwlpDDbuYE";
 
     public class SoundCloud {
         public static final String BASE_URL = "https://api-v2.soundcloud.com/";
