@@ -2,9 +2,7 @@ package com.example.soundcloud.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.example.soundcloud.data.source.remote.SongLoaderUtils;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

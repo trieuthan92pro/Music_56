@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.soundcloud.data.TabInfo;
+import com.example.soundcloud.data.model.TabInfo;
 import com.example.soundcloud.discover.DiscoverFragment;
 import com.example.soundcloud.favorite.FavoriteFragment;
 import com.example.soundcloud.my_music.MyMusicFragment;

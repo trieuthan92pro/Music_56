@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.SearchView;
 
 import com.example.soundcloud.R;
-import com.example.soundcloud.data.TabInfo;
+import com.example.soundcloud.data.model.TabInfo;
 import com.example.soundcloud.search.SearchActivity;
 
 public class HomeActivity extends AppCompatActivity
