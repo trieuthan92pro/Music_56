@@ -42,10 +42,7 @@ public class DiscoverVerticalAdapter
 
     @Override
     public int getItemCount() {
-        if (mList == null) {
-            return 0;
-        }
-        return mList.size();
+        return (mList == null) ? 0: mList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.soundcloud.R;
 import com.example.soundcloud.data.model.Genre;
+import com.example.soundcloud.data.source.SongRepository;
 import com.example.soundcloud.data.source.remote.SongRemoteDataSource;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class DiscoverFragment extends Fragment implements DiscoverContract.View 
     private RecyclerView mRecyclerView;
     private DiscoverVerticalAdapter mVerticalAdapter;
     private ProgressBar mProgressBar;
+    private SongRemoteDataSource mRemoteDataSource;
 
     public DiscoverFragment() {
 
@@ -41,7 +43,8 @@ public class DiscoverFragment extends Fragment implements DiscoverContract.View 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter = new DiscoverPresenter(this, new SongRemoteDataSource(),
+         mRemoteDataSource = new SongRemoteDataSource();
+        mPresenter = new DiscoverPresenter(this, new SongRepository(mRemoteDataSource),
                 getContext().getResources().getStringArray(R.array.array_genre_titles));
         mPresenter.start();
     }

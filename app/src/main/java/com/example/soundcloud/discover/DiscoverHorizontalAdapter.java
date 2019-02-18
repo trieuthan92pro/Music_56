@@ -41,10 +41,7 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
 
     @Override
     public int getItemCount() {
-        if (mSongs == null) {
-            return 0;
-        }
-        return mSongs.size();
+        return (mSongs == null) ? 0 : mSongs.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -61,15 +58,11 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
 
         public void bindData(Context context, Song song) {
             String artworkUrl = song.getArtworkUrl();
-            if (artworkUrl == null || artworkUrl.isEmpty()) {
-                Glide.with(context).load(R.drawable.soundcloud).into(imageArtwork);
-            } else {
-                Glide.with(context)
-                        .load(song.getArtworkUrl().trim())
-                        .error(R.drawable.ic_artwork_item_default)
-                        .fallback(R.drawable.ic_artwork_item_default)
-                        .into(imageArtwork);
-            }
+            Glide.with(context)
+                    .load(artworkUrl.trim())
+                    .error(R.drawable.ic_artwork_item_default)
+                    .fallback(R.drawable.ic_artwork_item_default)
+                    .into(imageArtwork);
             textArtist.setText(song.getArtist());
             textSongTitle.setText(song.getTitle());
         }

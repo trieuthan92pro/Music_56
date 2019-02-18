@@ -4,6 +4,7 @@ import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.model.GenreType;
 import com.example.soundcloud.data.model.Song;
 import com.example.soundcloud.data.source.SongDataSource;
+import com.example.soundcloud.data.source.SongRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,13 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
     };
     private String[] mGenreTitles;
     private DiscoverContract.View mView;
-    private SongDataSource.RemoteDataSource mDataSource;
+    private SongRepository mSongRepository;
     private List<Genre> mList;
 
-    public DiscoverPresenter(DiscoverContract.View view, SongDataSource.RemoteDataSource dataSource,
+    public DiscoverPresenter(DiscoverContract.View view, SongRepository repository,
                              String[] genreTitles) {
         mView = view;
-        mDataSource = dataSource;
+        mSongRepository = repository;
         mList = new ArrayList<>();
         mGenreTitles = genreTitles;
     }
@@ -40,7 +41,7 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    mDataSource.getSongByGenre(genreKey, 20, new SongDataSource.LoadSongCallback() {
+                    mSongRepository.getSongByGenre(genreKey, 20, new SongDataSource.LoadSongCallback() {
                         @Override
                         public void onSongsLoaded(List<Song> songs) {
                             Genre genre = new Genre(genreTitle, songs);
