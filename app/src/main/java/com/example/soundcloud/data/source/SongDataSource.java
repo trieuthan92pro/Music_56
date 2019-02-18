@@ -1,7 +1,6 @@
 package com.example.soundcloud.data.source;
 
 import com.example.soundcloud.data.model.Song;
-
 import java.util.List;
 
 public interface SongDataSource {
@@ -14,7 +13,6 @@ public interface SongDataSource {
 
     interface GetSongCallback {
         void onSongLoaded(Song song);
-
         void onDataNotAvailable();
     }
 

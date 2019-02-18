@@ -18,4 +18,5 @@ public class DiscoverFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_discover, container, false);
     }
+
 }
