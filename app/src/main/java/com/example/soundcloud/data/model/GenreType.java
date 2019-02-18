@@ -14,6 +14,6 @@ public @interface GenreType {
     String ALL_AUDIO = "all-audio";
     String AMBIENT = "ambient";
     String COUNTRY = "country";
-    String ALTERNATIVE_ROCK = "alternative-rock";
+    String ALTERNATIVE_ROCK = "alternativerock";
     String CLASSICAL = "classical";
 }
