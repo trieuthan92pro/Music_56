@@ -41,30 +41,31 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
 
     @Override
     public int getItemCount() {
-        return (mSongs == null) ? 0 : mSongs.size();
+        return mSongs == null ? 0 : mSongs.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textArtist;
-        private TextView textSongTitle;
-        private ImageView imageArtwork;
+        private TextView mTextViewArtist;
+        private TextView mTextViewSongTitle;
+        private ImageView mImageViewArtwork;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textSongTitle = itemView.findViewById(R.id.text_song_title_horizontal);
-            textArtist = itemView.findViewById(R.id.text_artist_horizontal);
-            imageArtwork = itemView.findViewById(R.id.image_artwork_horizontal);
+            mTextViewSongTitle = itemView.findViewById(R.id.text_song_title_horizontal);
+            mTextViewArtist = itemView.findViewById(R.id.text_artist_horizontal);
+            mImageViewArtwork = itemView.findViewById(R.id.image_artwork_horizontal);
         }
 
         public void bindData(Context context, Song song) {
+            if (song == null) return;
             String artworkUrl = song.getArtworkUrl();
             Glide.with(context)
                     .load(artworkUrl.trim())
                     .error(R.drawable.ic_artwork_item_default)
                     .fallback(R.drawable.ic_artwork_item_default)
-                    .into(imageArtwork);
-            textArtist.setText(song.getArtist());
-            textSongTitle.setText(song.getTitle());
+                    .into(mImageViewArtwork);
+            mTextViewArtist.setText(song.getArtist());
+            mTextViewSongTitle.setText(song.getTitle());
         }
     }
 }

@@ -14,6 +14,6 @@ public interface DiscoverContract {
     }
 
     interface Presenter extends BasePresenter {
-        void loadAllSong();
+        void loadSongs();
     }
 }

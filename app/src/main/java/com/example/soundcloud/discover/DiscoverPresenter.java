@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscoverPresenter implements DiscoverContract.Presenter {
-    private static String[] genreAPIKeys = {
+    private static final int LIMIT = 20;
+    private static final String[] GENRES = {
             GenreType.ALL_MUSIC, GenreType.ALL_AUDIO, GenreType.ALTERNATIVE_ROCK,
             GenreType.AMBIENT, GenreType.CLASSICAL, GenreType.COUNTRY
     };
@@ -30,23 +31,23 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
     @Override
     public void start() {
         mView.showProgressbar(true);
-        loadAllSong();
+        loadSongs();
     }
 
     @Override
-    public void loadAllSong() {
+    public void loadSongs() {
         for (int i = 0; i < mGenreTitles.length; i++) {
             String genreTitle = mGenreTitles[i];
-            String genreKey = genreAPIKeys[i];
+            String genreKey = GENRES[i];
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    mSongRepository.getSongByGenre(genreKey, 20, new SongDataSource.LoadSongCallback() {
+                    mSongRepository.getSongByGenre(genreKey, LIMIT, new SongDataSource.LoadSongCallback() {
                         @Override
                         public void onSongsLoaded(List<Song> songs) {
                             Genre genre = new Genre(genreTitle, songs);
                             mList.add(genre);
-                            if(mList.size() == mGenreTitles.length){
+                            if (mList.size() == mGenreTitles.length) {
                                 showData();
                             }
                         }

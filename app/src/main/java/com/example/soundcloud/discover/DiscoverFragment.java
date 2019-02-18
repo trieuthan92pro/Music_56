@@ -50,9 +50,9 @@ public class DiscoverFragment extends Fragment implements DiscoverContract.View 
     }
 
     @Override
-    public void showSongList(List<Genre> allSongs) {
-        if (!allSongs.isEmpty()) {
-            mVerticalAdapter = new DiscoverVerticalAdapter(getContext(), allSongs);
+    public void showSongList(List<Genre> genres) {
+        if (!genres.isEmpty()) {
+            mVerticalAdapter = new DiscoverVerticalAdapter(getContext(), genres);
             mRecyclerView.setAdapter(mVerticalAdapter);
         }
     }

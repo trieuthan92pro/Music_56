@@ -18,11 +18,11 @@ import java.util.List;
 public class DiscoverVerticalAdapter
         extends RecyclerView.Adapter<DiscoverVerticalAdapter.ViewHolder> {
     private Context mContext;
-    private List<Genre> mList;
+    private List<Genre> mGenres;
 
-    public DiscoverVerticalAdapter(Context context, List<Genre> list) {
+    public DiscoverVerticalAdapter(Context context, List<Genre> genres) {
         mContext = context;
-        mList = list;
+        mGenres = genres;
     }
 
     @NonNull
@@ -36,38 +36,39 @@ public class DiscoverVerticalAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Genre genre = mList.get(position);
+        Genre genre = mGenres.get(position);
         viewHolder.bindData(mContext, genre);
     }
 
     @Override
     public int getItemCount() {
-        return (mList == null) ? 0: mList.size();
+        return mGenres == null ? 0 : mGenres.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textGenreTitle;
-        private TextView textViewMore;
-        private ImageView imageShowMore;
-        private RecyclerView horizontalRecyclerView;
+        private TextView mTextViewGenreTitle;
+        private TextView mTextViewViewMore;
+        private ImageView mImageViewViewMore;
+        private RecyclerView mRecyclerViewHorizontal;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textGenreTitle = itemView.findViewById(R.id.text_genre_title);
-            textViewMore = itemView.findViewById(R.id.text_view_more);
-            imageShowMore = itemView.findViewById(R.id.img_view_more);
-            horizontalRecyclerView = itemView.findViewById(R.id.horizontal_recycler_view);
-            horizontalRecyclerView.setHasFixedSize(true);
+            mTextViewGenreTitle = itemView.findViewById(R.id.text_genre_title);
+            mTextViewViewMore = itemView.findViewById(R.id.text_view_more);
+            mImageViewViewMore = itemView.findViewById(R.id.img_view_more);
+            mRecyclerViewHorizontal = itemView.findViewById(R.id.horizontal_recycler_view);
+            mRecyclerViewHorizontal.setHasFixedSize(true);
         }
 
         public void bindData(Context context, Genre genre) {
-            textGenreTitle.setText(genre.getTitle());
+            if (genre == null) return;
+            mTextViewGenreTitle.setText(genre.getTitle());
             DiscoverHorizontalAdapter discoverHorizontalAdapter =
                     new DiscoverHorizontalAdapter(context, genre.getSongs());
             RecyclerView.LayoutManager horizontalLayoutManager =
                     new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-            horizontalRecyclerView.setAdapter(discoverHorizontalAdapter);
-            horizontalRecyclerView.setLayoutManager(horizontalLayoutManager);
+            mRecyclerViewHorizontal.setAdapter(discoverHorizontalAdapter);
+            mRecyclerViewHorizontal.setLayoutManager(horizontalLayoutManager);
         }
     }
 }
