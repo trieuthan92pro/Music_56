@@ -18,13 +18,13 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
     private String[] mGenreTitles;
     private DiscoverContract.View mView;
     private SongRepository mSongRepository;
-    private List<Genre> mList;
+    private List<Genre> mGenres;
 
     public DiscoverPresenter(DiscoverContract.View view, SongRepository repository,
                              String[] genreTitles) {
         mView = view;
         mSongRepository = repository;
-        mList = new ArrayList<>();
+        mGenres = new ArrayList<>();
         mGenreTitles = genreTitles;
     }
 
@@ -46,8 +46,8 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
                         @Override
                         public void onSongsLoaded(List<Song> songs) {
                             Genre genre = new Genre(genreTitle, songs);
-                            mList.add(genre);
-                            if (mList.size() == mGenreTitles.length) {
+                            mGenres.add(genre);
+                            if (mGenres.size() == mGenreTitles.length) {
                                 showData();
                             }
                         }
@@ -65,6 +65,6 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
 
     private void showData() {
         mView.showProgressbar(false);
-        mView.showSongList(mList);
+        mView.showSongList(mGenres);
     }
 }

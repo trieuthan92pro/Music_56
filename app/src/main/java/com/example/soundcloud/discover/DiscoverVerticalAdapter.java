@@ -19,19 +19,18 @@ public class DiscoverVerticalAdapter
         extends RecyclerView.Adapter<DiscoverVerticalAdapter.ViewHolder> {
     private Context mContext;
     private List<Genre> mGenres;
+    private LayoutInflater mLayoutInflater;
 
-    public DiscoverVerticalAdapter(Context context, List<Genre> genres) {
+    public DiscoverVerticalAdapter(Context context) {
         mContext = context;
-        mGenres = genres;
+        mLayoutInflater = LayoutInflater.from(mContext);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.discover_vertical_item, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        View view = mLayoutInflater.inflate(R.layout.discover_vertical_item, viewGroup, false);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -43,6 +42,10 @@ public class DiscoverVerticalAdapter
     @Override
     public int getItemCount() {
         return mGenres == null ? 0 : mGenres.size();
+    }
+
+    public void setGenres(List<Genre> genres){
+        mGenres = genres;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

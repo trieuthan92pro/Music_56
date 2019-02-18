@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.example.soundcloud.R;
 import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.source.SongRepository;
@@ -21,9 +22,8 @@ import java.util.List;
 public class DiscoverFragment extends Fragment implements DiscoverContract.View {
     private DiscoverContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
-    private DiscoverVerticalAdapter mVerticalAdapter;
+    private DiscoverVerticalAdapter mDiscoverAdapter;
     private ProgressBar mProgressBar;
-    private SongRemoteDataSource mRemoteDataSource;
 
     public DiscoverFragment() {
 
@@ -36,24 +36,21 @@ public class DiscoverFragment extends Fragment implements DiscoverContract.View 
         mRecyclerView = view.findViewById(R.id.discover_vertical_recyclerview);
         RecyclerView.LayoutManager linerLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linerLayoutManager);
+        mDiscoverAdapter = new DiscoverVerticalAdapter(getContext());
+        mRecyclerView.setAdapter(mDiscoverAdapter);
         mRecyclerView.setHasFixedSize(true);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-         mRemoteDataSource = new SongRemoteDataSource();
+        SongRemoteDataSource mRemoteDataSource = new SongRemoteDataSource();
         mPresenter = new DiscoverPresenter(this, new SongRepository(mRemoteDataSource),
                 getContext().getResources().getStringArray(R.array.array_genre_titles));
         mPresenter.start();
+        return view;
     }
 
     @Override
     public void showSongList(List<Genre> genres) {
         if (!genres.isEmpty()) {
-            mVerticalAdapter = new DiscoverVerticalAdapter(getContext(), genres);
-            mRecyclerView.setAdapter(mVerticalAdapter);
+            mDiscoverAdapter.setGenres(genres);
+            mDiscoverAdapter.notifyDataSetChanged();
         }
     }
 

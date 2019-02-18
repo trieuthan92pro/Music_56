@@ -18,25 +18,25 @@ import java.util.List;
 public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHorizontalAdapter.ViewHolder> {
     private List<Song> mSongs;
     private Context mContext;
+    private LayoutInflater mLayoutInflater;
 
     public DiscoverHorizontalAdapter(Context context, List<Song> songs) {
         mContext = context;
+        mLayoutInflater = LayoutInflater.from(mContext);
         mSongs = songs;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        Context context = viewGroup.getContext();
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.song_horizontal_item, viewGroup, false);
+        View view = mLayoutInflater.inflate(R.layout.song_horizontal_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Song song = mSongs.get(position);
-        viewHolder.bindData(mContext, song);
+        viewHolder.bindData(song);
     }
 
     @Override
@@ -44,22 +44,28 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
         return mSongs == null ? 0 : mSongs.size();
     }
 
+    public void setSongs(List<Song> songs) {
+        mSongs = songs;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextViewArtist;
         private TextView mTextViewSongTitle;
         private ImageView mImageViewArtwork;
+        private Context mContext;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            mContext = itemView.getContext();
             mTextViewSongTitle = itemView.findViewById(R.id.text_song_title_horizontal);
             mTextViewArtist = itemView.findViewById(R.id.text_artist_horizontal);
             mImageViewArtwork = itemView.findViewById(R.id.image_artwork_horizontal);
         }
 
-        public void bindData(Context context, Song song) {
+        public void bindData(Song song) {
             if (song == null) return;
             String artworkUrl = song.getArtworkUrl();
-            Glide.with(context)
+            Glide.with(mContext)
                     .load(artworkUrl.trim())
                     .error(R.drawable.ic_artwork_item_default)
                     .fallback(R.drawable.ic_artwork_item_default)
