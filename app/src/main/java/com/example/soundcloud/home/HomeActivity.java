@@ -1,6 +1,8 @@
 package com.example.soundcloud.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -8,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.example.soundcloud.R;
@@ -35,9 +40,9 @@ public class HomeActivity extends AppCompatActivity
     public void setTabIcon(TabInfo[] tabInfos) {
         int selectedPosition = mTabLayout.getSelectedTabPosition();
         for (int i = 0; i < tabInfos.length; i++) {
-            if (i == selectedPosition) {
+            if(i == selectedPosition){
                 mTabLayout.getTabAt(i).setIcon(tabInfos[i].getImageResourceActive());
-            } else {
+            } else{
                 mTabLayout.getTabAt(i).setIcon(tabInfos[i].getImageResource());
             }
         }
