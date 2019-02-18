@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.example.soundcloud.R;
 import com.example.soundcloud.data.model.Song;
@@ -29,42 +30,48 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
         Context context = viewGroup.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.song_horizontal_item, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Song song = mSongs.get(position);
-        String artworkUrl = song.getArtworkUrl();
-        if (artworkUrl == null || artworkUrl.isEmpty()) {
-            Glide.with(mContext).load(R.drawable.soundcloud).into(viewHolder.imageArtwork);
-        } else {
-            Glide.with(mContext)
-                    .load(song.getArtworkUrl().trim())
-                    .error(R.drawable.ic_artwork_item_default)
-                    .fallback(R.drawable.ic_artwork_item_default)
-                    .into(viewHolder.imageArtwork);
-        }
-        viewHolder.textArtist.setText(song.getArtist());
-        viewHolder.textSongTitle.setText(song.getTitle());
+        viewHolder.bindData(mContext, song);
     }
 
     @Override
     public int getItemCount() {
+        if (mSongs == null) {
+            return 0;
+        }
         return mSongs.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textArtist;
-        public TextView textSongTitle;
-        public ImageView imageArtwork;
+        private TextView textArtist;
+        private TextView textSongTitle;
+        private ImageView imageArtwork;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textSongTitle = itemView.findViewById(R.id.text_song_title_horizontal);
             textArtist = itemView.findViewById(R.id.text_artist_horizontal);
             imageArtwork = itemView.findViewById(R.id.image_artwork_horizontal);
+        }
+
+        public void bindData(Context context, Song song) {
+            String artworkUrl = song.getArtworkUrl();
+            if (artworkUrl == null || artworkUrl.isEmpty()) {
+                Glide.with(context).load(R.drawable.soundcloud).into(imageArtwork);
+            } else {
+                Glide.with(context)
+                        .load(song.getArtworkUrl().trim())
+                        .error(R.drawable.ic_artwork_item_default)
+                        .fallback(R.drawable.ic_artwork_item_default)
+                        .into(imageArtwork);
+            }
+            textArtist.setText(song.getArtist());
+            textSongTitle.setText(song.getTitle());
         }
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.soundcloud.R;
 import com.example.soundcloud.data.model.Genre;
 
@@ -36,25 +37,22 @@ public class DiscoverVerticalAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Genre genre = mList.get(position);
-        viewHolder.textGenreTitle.setText(genre.getTitle());
-        DiscoverHorizontalAdapter discoverHorizontalAdapter =
-                new DiscoverHorizontalAdapter(mContext, genre.getSongList());
-        RecyclerView.LayoutManager horizontalLayoutManager =
-                new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        viewHolder.horizontalRecyclerView.setAdapter(discoverHorizontalAdapter);
-        viewHolder.horizontalRecyclerView.setLayoutManager(horizontalLayoutManager);
+        viewHolder.bindData(mContext, genre);
     }
 
     @Override
     public int getItemCount() {
+        if (mList == null) {
+            return 0;
+        }
         return mList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textGenreTitle;
-        public TextView textViewMore;
-        public ImageView imageShowMore;
-        public RecyclerView horizontalRecyclerView;
+        private TextView textGenreTitle;
+        private TextView textViewMore;
+        private ImageView imageShowMore;
+        private RecyclerView horizontalRecyclerView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +61,16 @@ public class DiscoverVerticalAdapter
             imageShowMore = itemView.findViewById(R.id.img_view_more);
             horizontalRecyclerView = itemView.findViewById(R.id.horizontal_recycler_view);
             horizontalRecyclerView.setHasFixedSize(true);
+        }
+
+        public void bindData(Context context, Genre genre) {
+            textGenreTitle.setText(genre.getTitle());
+            DiscoverHorizontalAdapter discoverHorizontalAdapter =
+                    new DiscoverHorizontalAdapter(context, genre.getSongs());
+            RecyclerView.LayoutManager horizontalLayoutManager =
+                    new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+            horizontalRecyclerView.setAdapter(discoverHorizontalAdapter);
+            horizontalRecyclerView.setLayoutManager(horizontalLayoutManager);
         }
     }
 }

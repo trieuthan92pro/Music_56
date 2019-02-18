@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Genre implements Parcelable {
     private String mTitle;
-    private List<Song> mSongList;
+    private List<Song> mSongs;
 
     public Genre(){
 
@@ -15,12 +15,12 @@ public class Genre implements Parcelable {
 
     public Genre(String title, List<Song> songs){
         mTitle = title;
-        mSongList = songs;
+        mSongs = songs;
     }
 
     protected Genre(Parcel in) {
         mTitle = in.readString();
-        mSongList = in.createTypedArrayList(Song.CREATOR);
+        mSongs = in.createTypedArrayList(Song.CREATOR);
     }
 
     public static final Creator<Genre> CREATOR = new Creator<Genre>() {
@@ -43,7 +43,7 @@ public class Genre implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mTitle);
-        dest.writeTypedList(mSongList);
+        dest.writeTypedList(mSongs);
     }
 
     public String getTitle() {
@@ -54,11 +54,11 @@ public class Genre implements Parcelable {
         mTitle = title;
     }
 
-    public List<Song> getSongList() {
-        return mSongList;
+    public List<Song> getSongs() {
+        return mSongs;
     }
 
-    public void setSongList(List<Song> songList) {
-        mSongList = songList;
+    public void setSongs(List<Song> songs) {
+        mSongs = songs;
     }
 }

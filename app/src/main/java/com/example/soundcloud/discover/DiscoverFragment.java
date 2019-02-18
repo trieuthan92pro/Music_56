@@ -41,7 +41,8 @@ public class DiscoverFragment extends Fragment implements DiscoverContract.View 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter = new DiscoverPresenter(this, new SongRemoteDataSource());
+        mPresenter = new DiscoverPresenter(this, new SongRemoteDataSource(),
+                getContext().getResources().getStringArray(R.array.array_genre_titles));
         mPresenter.start();
     }
 
