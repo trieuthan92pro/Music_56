@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <!--https://irpdevelop.wordpress.com/2016/02/10/horizontal-recyclerview-inside-a-vertical-recyclerview/-->
     <TextView
         android:id="@+id/text_song_title_horizontal"
         android:layout_width="0dp"
@@ -14,7 +13,6 @@
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginEnd="@dimen/margin_8"
         android:layout_marginRight="@dimen/margin_8"
-        android:text="Song name"
         android:textSize="@dimen/text_size_18"
         android:maxLength="32"
         android:maxLines="2"
@@ -44,7 +42,6 @@
         android:layout_marginLeft="@dimen/margin_8"
         android:layout_marginEnd="@dimen/margin_8"
         android:layout_marginRight="@dimen/margin_8"
-        android:text="Artist"
         android:maxLength="32"
         android:maxLines="2"
         app:layout_constraintEnd_toEndOf="parent"
