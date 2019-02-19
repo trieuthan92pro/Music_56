@@ -8,7 +8,7 @@
     tools:context=".selected_genre_detail.SelectedGenreActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/tool_bar_second"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/color_background_purple_light"
@@ -28,7 +28,7 @@
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_8"
         android:src="@drawable/ic_back_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/tool_bar_second"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,8 +41,8 @@
         android:layout_marginRight="@dimen/margin_16"
         android:layout_marginBottom="@dimen/margin_16"
         android:background="@drawable/ic_search_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/tool_bar_second"
+        app:layout_constraintEnd_toEndOf="@+id/tool_bar_second"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar_second" />
 
     <TextView
         android:id="@+id/text_selected_genre_title"
