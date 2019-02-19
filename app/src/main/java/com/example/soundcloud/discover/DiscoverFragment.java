@@ -1,5 +1,6 @@
 package com.example.soundcloud.discover;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,10 +17,16 @@ import com.example.soundcloud.R;
 import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.source.SongRepository;
 import com.example.soundcloud.data.source.remote.SongRemoteDataSource;
+import com.example.soundcloud.play_detail.PlayDetailActivity;
+import com.example.soundcloud.selected_genre_detail.SelectedGenreActivity;
 
 import java.util.List;
 
-public class DiscoverFragment extends Fragment implements DiscoverContract.View {
+public class DiscoverFragment extends Fragment
+        implements DiscoverContract.View, DiscoverVerticalAdapter.OnVerticalItemClickListener,
+        DiscoverHorizontalAdapter.OnHorizontalItemClickListener {
+    public static String SELECTED_ITEM_POSITION = "SELECTED_ITEM_POSITION";
+    public static String SELECTED_GENRE = "SELECTED_GENRE";
     private DiscoverContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     private DiscoverVerticalAdapter mDiscoverAdapter;
@@ -36,7 +43,7 @@ public class DiscoverFragment extends Fragment implements DiscoverContract.View 
         mRecyclerView = view.findViewById(R.id.discover_vertical_recyclerview);
         RecyclerView.LayoutManager linerLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linerLayoutManager);
-        mDiscoverAdapter = new DiscoverVerticalAdapter(getContext());
+        mDiscoverAdapter = new DiscoverVerticalAdapter(getContext(), this, this);
         mRecyclerView.setAdapter(mDiscoverAdapter);
         mRecyclerView.setHasFixedSize(true);
         SongRemoteDataSource mRemoteDataSource = new SongRemoteDataSource();
@@ -66,5 +73,20 @@ public class DiscoverFragment extends Fragment implements DiscoverContract.View 
         } else {
             mProgressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onHorizontalItemClick(int position, Genre genre) {
+        Intent intent = PlayDetailActivity.getIntent(getContext());
+        intent.putExtra(SELECTED_ITEM_POSITION, position);
+        intent.putExtra(SELECTED_GENRE, genre);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(Genre genre) {
+        Intent intent = SelectedGenreActivity.getIntent(getContext());
+        intent.putExtra(SelectedGenreActivity.GENERE_KEY, genre);
+        startActivity(intent);
     }
 }

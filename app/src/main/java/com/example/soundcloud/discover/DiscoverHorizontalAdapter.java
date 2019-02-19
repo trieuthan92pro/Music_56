@@ -11,19 +11,25 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.soundcloud.R;
+import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.model.Song;
 
 import java.util.List;
 
 public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHorizontalAdapter.ViewHolder> {
     private List<Song> mSongs;
+    private Genre mGenre;
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+    private OnHorizontalItemClickListener mOnHorizontalItemClickListener;
 
-    public DiscoverHorizontalAdapter(Context context, List<Song> songs) {
+    public DiscoverHorizontalAdapter(Context context, Genre genre,
+                                     OnHorizontalItemClickListener listener) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(mContext);
-        mSongs = songs;
+        mGenre = genre;
+        mSongs = genre.getSongs();
+        mOnHorizontalItemClickListener = listener;
     }
 
     @NonNull
@@ -36,6 +42,8 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Song song = mSongs.get(position);
+        viewHolder.setGenre(mGenre);
+        viewHolder.setOnHorizontalItemClickListener(mOnHorizontalItemClickListener);
         viewHolder.bindData(song);
     }
 
@@ -44,14 +52,20 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
         return mSongs == null ? 0 : mSongs.size();
     }
 
-    public void setSongs(List<Song> songs) {
-        mSongs = songs;
+    public void setGenre(Genre genre) {
+        mGenre = genre;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public interface OnHorizontalItemClickListener {
+        void onHorizontalItemClick(int position, Genre genre);
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextViewArtist;
         private TextView mTextViewSongTitle;
         private ImageView mImageViewArtwork;
+        private OnHorizontalItemClickListener mOnHorizontalItemClickListener;
+        private Genre mGenre;
         private Context mContext;
 
         public ViewHolder(@NonNull View itemView) {
@@ -60,6 +74,18 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
             mTextViewSongTitle = itemView.findViewById(R.id.text_song_title_horizontal);
             mTextViewArtist = itemView.findViewById(R.id.text_artist_horizontal);
             mImageViewArtwork = itemView.findViewById(R.id.image_artwork_horizontal);
+
+            mImageViewArtwork.setOnClickListener(this);
+            mTextViewArtist.setOnClickListener(this);
+            mTextViewSongTitle.setOnClickListener(this);
+        }
+
+        public void setOnHorizontalItemClickListener(OnHorizontalItemClickListener onHorizontalItemClickListener) {
+            mOnHorizontalItemClickListener = onHorizontalItemClickListener;
+        }
+
+        public void setGenre(Genre genre) {
+            mGenre = genre;
         }
 
         public void bindData(Song song) {
@@ -72,6 +98,11 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
                     .into(mImageViewArtwork);
             mTextViewArtist.setText(song.getArtist());
             mTextViewSongTitle.setText(song.getTitle());
+        }
+
+        @Override
+        public void onClick(View v) {
+            mOnHorizontalItemClickListener.onHorizontalItemClick(getAdapterPosition(), mGenre);
         }
     }
 }
