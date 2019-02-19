@@ -1,5 +1,6 @@
 package com.example.soundcloud.discover;
 
+import android.content.Intent;
 import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.model.GenreType;
 import com.example.soundcloud.data.model.Song;
