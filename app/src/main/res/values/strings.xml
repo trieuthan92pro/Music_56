@@ -8,9 +8,9 @@
     <string name="text_artist">Artist</string>
     <string name="text_search_hint">Your search key</string>
     <string name="text_view_more">View more</string>
-    <string name="text_all_music">ALL_MUSIC</string>
-    <string name="text_all_audio">ALL_AUDIO</string>
-    <string name="text_alternative_rock">ALTERNATIVE_ROCK</string>
+    <string name="text_all_music">ALL MUSIC</string>
+    <string name="text_all_audio">ALL AUDIO</string>
+    <string name="text_alternative_rock">ALTERNATIVE ROCK</string>
     <string name="text_ambient">AMBIENT</string>
     <string name="text_classical">CLASSICAL</string>
     <string name="text_contry">COUNTRY</string>
