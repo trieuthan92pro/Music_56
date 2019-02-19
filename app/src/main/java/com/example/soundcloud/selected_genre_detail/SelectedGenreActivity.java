@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.soundcloud.R;
+import com.example.soundcloud.data.model.Genre;
 
 public class SelectedGenreActivity extends AppCompatActivity {
-    public static final String GENERE_KEY = "GENERE_KEY";
+    private static final String EXTRA_GENERE = "EXTRA_GENERE";
 
-    public static Intent getIntent(Context context) {
-        return new Intent(context, SelectedGenreActivity.class);
+    public static Intent getIntent(Context context, Genre genre) {
+        Intent intent = new Intent(context, SelectedGenreActivity.class);
+        intent.putExtra(SelectedGenreActivity.EXTRA_GENERE, genre);
+        return intent;
+
     }
 
     @Override

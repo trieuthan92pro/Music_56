@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.soundcloud.R;
@@ -36,14 +35,15 @@ public class DiscoverVerticalAdapter
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = mLayoutInflater.inflate(R.layout.discover_vertical_item, viewGroup, false);
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.setListener(mOnVerticalItemClickListener);
+        viewHolder.setListenerHorizontal(mOnHorizontalItemClickListenerHorizontal);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Genre genre = mGenres.get(position);
-        viewHolder.setListener(mOnVerticalItemClickListener);
-        viewHolder.setListenerHorizontal(mOnHorizontalItemClickListenerHorizontal);
         viewHolder.bindData(mContext, genre);
         viewHolder.setGenres(mGenres);
     }
@@ -59,8 +59,6 @@ public class DiscoverVerticalAdapter
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextViewGenreTitle;
-        private TextView mTextViewViewMore;
-        private ImageView mImageViewViewMore;
         private RecyclerView mRecyclerViewHorizontal;
         private OnVerticalItemClickListener mListener;
         private DiscoverHorizontalAdapter.OnHorizontalItemClickListener mListenerHorizontal;
@@ -69,13 +67,10 @@ public class DiscoverVerticalAdapter
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTextViewGenreTitle = itemView.findViewById(R.id.text_genre_title);
-            mTextViewViewMore = itemView.findViewById(R.id.text_view_more);
-            mImageViewViewMore = itemView.findViewById(R.id.img_view_more);
+            itemView.findViewById(R.id.text_view_more).setOnClickListener(this);
+            itemView.findViewById(R.id.img_view_more).setOnClickListener(this);
             mRecyclerViewHorizontal = itemView.findViewById(R.id.horizontal_recycler_view);
             mRecyclerViewHorizontal.setHasFixedSize(true);
-
-            mTextViewViewMore.setOnClickListener(this);
-            mImageViewViewMore.setOnClickListener(this);
             mTextViewGenreTitle.setOnClickListener(this);
         }
 

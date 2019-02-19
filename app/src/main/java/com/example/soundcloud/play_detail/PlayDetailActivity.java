@@ -17,6 +17,8 @@ import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.discover.DiscoverFragment;
 
 public class PlayDetailActivity extends AppCompatActivity implements View.OnClickListener {
+    private static String EXTRA_SELECTED_ITEM_POSITION = "EXTRA_SELECTED_ITEM_POSITION";
+    private static String EXTRA_SELECTED_GENRE = "EXTRA_SELECTED_GENRE";
     private ImageView mImageArtwork;
     private ImageView mImageFavorite;
     private ImageView mImageMoreOption;
@@ -29,14 +31,16 @@ public class PlayDetailActivity extends AppCompatActivity implements View.OnClic
     private ImageButton mImageButtonSkipToNext;
     private ImageButton mImageButtonPlayPause;
     private ImageButton mImageButtonRepeat;
-    private ImageButton mImageButtonBack;
     private SeekBar mSeekBar;
 
     private Genre mGenre;
     private int mSelectedPosition;
 
-    public static Intent getIntent(Context context) {
-        return new Intent(context, PlayDetailActivity.class);
+    public static Intent getIntent(Context context, Genre genre, int position) {
+        Intent intent = new Intent(context, PlayDetailActivity.class);
+        intent.putExtra(EXTRA_SELECTED_ITEM_POSITION, position);
+        intent.putExtra(EXTRA_SELECTED_GENRE, genre);
+        return intent;
     }
 
     @Override
@@ -45,10 +49,10 @@ public class PlayDetailActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_play_detail);
         initView();
         addAction();
-        mGenre = getIntent().getParcelableExtra(DiscoverFragment.SELECTED_GENRE);
-        mSelectedPosition = getIntent().getIntExtra(DiscoverFragment.SELECTED_ITEM_POSITION, 0);
+        mGenre = getIntent().getParcelableExtra(EXTRA_SELECTED_GENRE);
+        mSelectedPosition = getIntent().getIntExtra(EXTRA_SELECTED_ITEM_POSITION, 0);
         if(savedInstanceState != null){
-            mSelectedPosition = savedInstanceState.getInt(DiscoverFragment.SELECTED_ITEM_POSITION);
+            mSelectedPosition = savedInstanceState.getInt(EXTRA_SELECTED_ITEM_POSITION);
         }
     }
 
@@ -76,7 +80,6 @@ public class PlayDetailActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void addAction() {
-        mImageButtonBack.setOnClickListener(this);
         mImageFavorite.setOnClickListener(this);
         mImageMoreOption.setOnClickListener(this);
         mImageButtonPlayPause.setOnClickListener(this);
@@ -99,7 +102,7 @@ public class PlayDetailActivity extends AppCompatActivity implements View.OnClic
         mImageButtonShuffle = findViewById(R.id.img_button_shuft);
         mImageButtonSkipToNext = findViewById(R.id.img_button_next);
         mImageButtonSkipToPrevious = findViewById(R.id.img_button_prev);
-        mImageButtonBack = findViewById(R.id.image_button_back);
+        findViewById(R.id.image_button_back).setOnClickListener(this);;
         mSeekBar = findViewById(R.id.seek_bar);
     }
 }

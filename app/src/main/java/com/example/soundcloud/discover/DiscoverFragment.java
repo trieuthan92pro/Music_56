@@ -2,8 +2,6 @@ package com.example.soundcloud.discover;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,8 +23,6 @@ import java.util.List;
 public class DiscoverFragment extends Fragment
         implements DiscoverContract.View, DiscoverVerticalAdapter.OnVerticalItemClickListener,
         DiscoverHorizontalAdapter.OnHorizontalItemClickListener {
-    public static String SELECTED_ITEM_POSITION = "SELECTED_ITEM_POSITION";
-    public static String SELECTED_GENRE = "SELECTED_GENRE";
     private DiscoverContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     private DiscoverVerticalAdapter mDiscoverAdapter;
@@ -77,16 +73,11 @@ public class DiscoverFragment extends Fragment
 
     @Override
     public void onHorizontalItemClick(int position, Genre genre) {
-        Intent intent = PlayDetailActivity.getIntent(getContext());
-        intent.putExtra(SELECTED_ITEM_POSITION, position);
-        intent.putExtra(SELECTED_GENRE, genre);
-        startActivity(intent);
+        startActivity(PlayDetailActivity.getIntent(getContext(), genre, position));
     }
 
     @Override
     public void onClick(Genre genre) {
-        Intent intent = SelectedGenreActivity.getIntent(getContext());
-        intent.putExtra(SelectedGenreActivity.GENERE_KEY, genre);
-        startActivity(intent);
+        startActivity(SelectedGenreActivity.getIntent(getContext(), genre));
     }
 }

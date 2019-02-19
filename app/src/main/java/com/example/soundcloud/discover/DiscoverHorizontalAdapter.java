@@ -36,14 +36,15 @@ public class DiscoverHorizontalAdapter extends RecyclerView.Adapter<DiscoverHori
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view = mLayoutInflater.inflate(R.layout.song_horizontal_item, viewGroup, false);
-        return new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.setOnHorizontalItemClickListener(mOnHorizontalItemClickListener);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Song song = mSongs.get(position);
         viewHolder.setGenre(mGenre);
-        viewHolder.setOnHorizontalItemClickListener(mOnHorizontalItemClickListener);
         viewHolder.bindData(song);
     }
 
