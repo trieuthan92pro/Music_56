@@ -26,7 +26,7 @@
             android:src="@drawable/ic_back_24dp" />
 
         <SearchView
-            android:id="@+id/search_siew"
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_8"
