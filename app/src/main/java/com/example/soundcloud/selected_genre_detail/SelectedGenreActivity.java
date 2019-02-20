@@ -13,11 +13,11 @@ import com.example.soundcloud.data.model.Genre;
 
 public class SelectedGenreActivity extends AppCompatActivity {
     private static final String EXTRA_GENERE = "EXTRA_GENERE";
-    private TextView mTextViewGenreTitle;
-    private ImageButton mImageButtonSearch;
-    private RecyclerView mRecyclerView;
+    private TextView mTextGenreTitle;
+    private ImageButton mButtonSearch;
+    private RecyclerView mRecyclerGenres;
     private Genre mGenre;
-    private SelectedGenreAdapter mAdapter;
+    private SelectedGenreAdapter mGenreAdapter;
 
     public static Intent getIntent(Context context, Genre genre) {
         Intent intent = new Intent(context, SelectedGenreActivity.class);
@@ -38,8 +38,8 @@ public class SelectedGenreActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mTextViewGenreTitle = findViewById(R.id.text_selected_genre_title);
-        mImageButtonSearch = findViewById(R.id.button_search_selected_genre);
-        mRecyclerView = findViewById(R.id.recycler_view_selected_genre);
+        mTextGenreTitle = findViewById(R.id.text_selected_genre_title);
+        mButtonSearch = findViewById(R.id.button_search_selected_genre);
+        mRecyclerGenres = findViewById(R.id.recycler_view_selected_genre);
     }
 }
