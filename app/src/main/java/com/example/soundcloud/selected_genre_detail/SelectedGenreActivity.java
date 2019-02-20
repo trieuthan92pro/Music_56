@@ -16,6 +16,8 @@ public class SelectedGenreActivity extends AppCompatActivity {
     private TextView mTextViewGenreTitle;
     private ImageButton mImageButtonSearch;
     private RecyclerView mRecyclerView;
+    private Genre mGenre;
+    private SelectedGenreAdapter mAdapter;
 
     public static Intent getIntent(Context context, Genre genre) {
         Intent intent = new Intent(context, SelectedGenreActivity.class);
@@ -28,6 +30,11 @@ public class SelectedGenreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_genre);
         initView();
+        getData();
+    }
+
+    private void getData() {
+        mGenre = getIntent().getParcelableExtra(EXTRA_GENERE);
     }
 
     private void initView() {
