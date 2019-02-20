@@ -64,4 +64,17 @@ public class SongLoaderUtils {
         }
         return UNKNOWN;
     }
+
+    public static ArrayList<Song> getSearchSong(String jsonString) throws JSONException {
+        ArrayList<Song> songs = new ArrayList<>();
+        JSONObject root = new JSONObject(jsonString);
+        JSONArray collection = root.getJSONArray(Song.JSonKey.COLLECTION);
+        for (int i = 0; i < collection.length(); i++) {
+            JSONObject jsonObject = collection.getJSONObject(i);
+            Song song = new Song(jsonObject);
+            song.setSongType(SongType.TYPE_ONLINE);
+            songs.add(song);
+        }
+        return songs;
+    }
 }
