@@ -19,4 +19,6 @@
     <dimen name="text_size_24">24sp</dimen>
     <dimen name="width_20">20dp</dimen>
     <dimen name="width_60dp">60dp</dimen>
+    <dimen name="radius_4">4dp</dimen>
+    <dimen name="width_1">1dp</dimen>
 </resources>

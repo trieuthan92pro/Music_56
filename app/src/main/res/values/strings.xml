@@ -15,6 +15,8 @@
     <string name="text_classical">CLASSICAL</string>
     <string name="text_contry">COUNTRY</string>
     <string name="text_download">Download</string>
+    <string name="text_action_clear">Clear</string>
+    <string name="text_search_history">SEARCH HISTORY</string>
     <array name="array_genre_titles">
         <item>@string/text_all_music</item>
         <item>@string/text_all_audio</item>
