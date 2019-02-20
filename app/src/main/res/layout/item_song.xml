@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/image_song_item_option"
+        android:id="@+id/image_item_song_option"
         android:layout_width="@dimen/height_24"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/image_song_item_download"
+        android:id="@+id/image_item_song_download"
         android:layout_width="@dimen/height_24"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
@@ -68,6 +68,6 @@
         android:layout_marginBottom="@dimen/margin_16"
         android:src="@drawable/ic_file_download_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/image_song_item_option"
+        app:layout_constraintEnd_toStartOf="@+id/image_item_song_option"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_selected_genre"
+        android:id="@+id/recycler_selected_genre"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,7 +63,7 @@
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_8"
         android:textSize="@dimen/text_size_18"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_view_selected_genre"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_selected_genre"
         app:layout_constraintStart_toEndOf="@+id/image_selected_genre_back"
         app:layout_constraintTop_toTopOf="parent" />
 
