@@ -40,7 +40,7 @@ public class SongLoaderUtils {
         return jsonString;
     }
 
-    public static List<Song> getSongFromJSONString(String jsonString) throws JSONException {
+    public static List<Song> getSongsFromJSONString(String jsonString) throws JSONException {
         List<Song> songs = new ArrayList<>();
         JSONObject root = new JSONObject(jsonString);
         JSONArray songsCollection = root.getJSONArray(Song.JSonKey.COLLECTION);
@@ -63,5 +63,18 @@ public class SongLoaderUtils {
             e.printStackTrace();
         }
         return UNKNOWN;
+    }
+
+    public static List<Song> getSearchSongs(String jsonString) throws JSONException {
+        List<Song> songs = new ArrayList<>();
+        JSONObject root = new JSONObject(jsonString);
+        JSONArray collection = root.getJSONArray(Song.JSonKey.COLLECTION);
+        for (int i = 0; i < collection.length(); i++) {
+            JSONObject jsonObject = collection.getJSONObject(i);
+            Song song = new Song(jsonObject);
+            song.setSongType(SongType.TYPE_ONLINE);
+            songs.add(song);
+        }
+        return songs;
     }
 }

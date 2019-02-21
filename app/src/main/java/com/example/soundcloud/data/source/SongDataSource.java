@@ -11,14 +11,9 @@ public interface SongDataSource {
         void onDataNotAvailable(Exception e);
     }
 
-    interface GetSongCallback {
-        void onSongLoaded(Song song);
-        void onDataNotAvailable();
-    }
-
     interface RemoteDataSource {
-        void getSongByGenre(String genre, int limit, LoadSongCallback callback);
+        void getSongsByGenre(String genre, int limit, LoadSongCallback callback);
 
-        void getSearchSong(String searchKey, int limit, LoadSongCallback callback);
+        void searchSong(String searchKey, int limit, LoadSongCallback callback);
     }
 }

@@ -8,43 +8,43 @@ import com.example.soundcloud.data.source.SongDataSource;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class RemoteDataHelperAsyncTask extends AsyncTask<String, Void, List<Song>> {
-    private SongDataSource.LoadSongCallback mCallback;
+public class SearchSongRemoteAsyncTask extends AsyncTask<String, Void, List<Song>> {
+    private SongDataSource.LoadSongCallback mCallBack;
     private Exception mException;
+    private String mSearchKey;
 
-    public RemoteDataHelperAsyncTask(SongDataSource.LoadSongCallback callback) {
-        mCallback = callback;
+    SearchSongRemoteAsyncTask(SongDataSource.LoadSongCallback callBack, String searchKey) {
+        mCallBack = callBack;
+        mSearchKey = searchKey;
     }
 
     @Override
     protected List<Song> doInBackground(String... strings) {
+        List<Song> songs = new ArrayList<>();
         try {
-            String jsonStringResult = SongLoaderUtils.getJSONFromAPI(strings[0]);
-            List<Song> songs = SongLoaderUtils.getSongsFromJSONString(jsonStringResult);
-            return songs;
+            String json = SongLoaderUtils.getJSONFromAPI(strings[0]);
+            songs = SongLoaderUtils.getSearchSongs(json);
         } catch (IOException e) {
-            e.printStackTrace();
             mException = e;
         } catch (JSONException e) {
-            e.printStackTrace();
             mException = e;
         }
-        return null;
+        return songs;
     }
 
     @Override
     protected void onPostExecute(List<Song> songs) {
         super.onPostExecute(songs);
-        if (mCallback == null) {
+        if (mCallBack == null) {
             return;
         }
-
-        if (songs == null) {
-            mCallback.onDataNotAvailable(mException);
+        if (mException == null) {
+            mCallBack.onSongsLoaded(songs);
         } else {
-            mCallback.onSongsLoaded(songs);
+            mCallBack.onDataNotAvailable(mException);
         }
     }
 }

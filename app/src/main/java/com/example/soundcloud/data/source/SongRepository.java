@@ -10,13 +10,13 @@ public class SongRepository implements SongDataSource.RemoteDataSource{
     }
 
     @Override
-    public void getSongByGenre(String genre, int limit, SongDataSource.LoadSongCallback callback) {
-        mRemoteDataSource.getSongByGenre(genre, limit, callback);
+    public void getSongsByGenre(String genre, int limit, SongDataSource.LoadSongCallback callback) {
+        mRemoteDataSource.getSongsByGenre(genre, limit, callback);
     }
 
     @Override
-    public void getSearchSong(String searchKey, int limit,
-                              SongDataSource.LoadSongCallback callback) {
-        mRemoteDataSource.getSearchSong(searchKey, limit, callback);
+    public void searchSong(String searchKey, int limit,
+                           SongDataSource.LoadSongCallback callback) {
+        mRemoteDataSource.searchSong(searchKey, limit, callback);
     }
 }
