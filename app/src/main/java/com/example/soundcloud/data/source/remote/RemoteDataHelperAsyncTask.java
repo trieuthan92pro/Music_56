@@ -22,7 +22,7 @@ public class RemoteDataHelperAsyncTask extends AsyncTask<String, Void, List<Song
     protected List<Song> doInBackground(String... strings) {
         try {
             String jsonStringResult = SongLoaderUtils.getJSONFromAPI(strings[0]);
-            List<Song> songs = SongLoaderUtils.getSongFromJSONString(jsonStringResult);
+            List<Song> songs = SongLoaderUtils.getSongsFromJSONString(jsonStringResult);
             return songs;
         } catch (IOException e) {
             e.printStackTrace();

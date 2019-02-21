@@ -13,18 +13,18 @@ public class HistorySearchLocalDataSource implements SearchHistoryDataSource.Loc
     }
 
     @Override
-    public void getHistorySearchKey(SearchHistoryDataSource.HistorySearchCallback callBack) {
+    public void getHistorySearchKeys(SearchHistoryDataSource.HistorySearchCallback callBack) {
         mDatabaseHelper.getAllSearchHistory(callBack);
     }
 
     @Override
-    public void saveHistorySearchIntoDB(List<SearchHistory> searchHistories,
-                                        SearchHistoryDataSource.HistorySearchCallback callBack) {
+    public void saveHistory(List<SearchHistory> searchHistories,
+                            SearchHistoryDataSource.HistorySearchCallback callBack) {
         mDatabaseHelper.addHistorySearch(searchHistories, callBack);
     }
 
     @Override
-    public void deleteAllHistorySearchFromDB(SearchHistoryDataSource.HistorySearchCallback callBack) {
+    public void deleteAllHistory(SearchHistoryDataSource.HistorySearchCallback callBack) {
         mDatabaseHelper.deleteAllHistories(callBack);
     }
 

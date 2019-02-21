@@ -1,6 +1,5 @@
 package com.example.soundcloud.discover;
 
-import android.content.Intent;
 import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.model.GenreType;
 import com.example.soundcloud.data.model.Song;
@@ -43,7 +42,7 @@ public class DiscoverPresenter implements DiscoverContract.Presenter {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    mSongRepository.getSongByGenre(genreKey, LIMIT, new SongDataSource.LoadSongCallback() {
+                    mSongRepository.getSongsByGenre(genreKey, LIMIT, new SongDataSource.LoadSongCallback() {
                         @Override
                         public void onSongsLoaded(List<Song> songs) {
                             Genre genre = new Genre(genreTitle, songs);

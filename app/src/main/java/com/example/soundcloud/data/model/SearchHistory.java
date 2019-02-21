@@ -7,6 +7,10 @@ public class SearchHistory {
     public SearchHistory() {
     }
 
+    public SearchHistory(String searchKey) {
+        mSearchKey = searchKey;
+    }
+
     public SearchHistory(int id, String searchKey) {
         mId = id;
         mSearchKey = searchKey;

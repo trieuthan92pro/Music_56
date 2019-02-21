@@ -8,16 +8,16 @@ import com.example.soundcloud.data.source.SongDataSource.LoadSongCallback;
 public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
 
     @Override
-    public void getSongByGenre(String genre, int limit, LoadSongCallback callBack) {
-        getSongDataFromAPI(genre, limit, callBack);
+    public void getSongsByGenre(String genre, int limit, LoadSongCallback callBack) {
+        getSongsDataFromAPI(genre, limit, callBack);
     }
 
     @Override
-    public void getSearchSong(String searchKey, int limit, LoadSongCallback callBack) {
-        getSongBySearchKey(searchKey, limit, callBack);
+    public void getSearchSongs(String searchKey, int limit, LoadSongCallback callBack) {
+        getSongsBySearchKey(searchKey, limit, callBack);
     }
 
-    private void getSongBySearchKey(String searchKey, int limit, LoadSongCallback callBack) {
+    private void getSongsBySearchKey(String searchKey, int limit, LoadSongCallback callBack) {
         String url = DataHelper.SoundCloud.BASE_URL
                 + DataHelper.SoundCloud.SEARCH
                 + DataHelper.SoundCloud.QUERY_SEARCH
@@ -30,7 +30,7 @@ public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
         new SearchSongRemoteAsyncTask(callBack, searchKey).execute(url);
     }
 
-    private void getSongDataFromAPI(String genre, int limit, LoadSongCallback callBack) {
+    private void getSongsDataFromAPI(String genre, int limit, LoadSongCallback callBack) {
         String url = DataHelper.SoundCloud.BASE_URL
                 + DataHelper.SoundCloud.PARAM_KIND
                 + DataHelper.SoundCloud.PARAM_GENRE

@@ -8,16 +8,16 @@ public interface SearchHistoryDataSource {
     interface HistorySearchCallback {
         void onSuccess();
 
-        void onSuccess(List<SearchHistory> searchHistories);
+        void onSuccess(List<SearchHistory> histories);
 
         void onFailed(String errMsg);
     }
 
     interface LocalDataSource {
-        void getHistorySearchKey(HistorySearchCallback callback);
+        void getHistorySearchKeys(HistorySearchCallback callBack);
 
-        void saveHistorySearchIntoDB(List<SearchHistory> searchHistories, HistorySearchCallback callback);
+        void saveHistory(List<SearchHistory> searchHistories, HistorySearchCallback callBack);
 
-        void deleteAllHistorySearchFromDB(HistorySearchCallback callback);
+        void deleteAllHistory(HistorySearchCallback callBack);
     }
 }

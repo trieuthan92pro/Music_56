@@ -12,17 +12,17 @@ public class SearchHistoryRepository implements SearchHistoryDataSource.LocalDat
     }
 
     @Override
-    public void getHistorySearchKey(SearchHistoryDataSource.HistorySearchCallback callback) {
-        mLocalDataSource.getHistorySearchKey(callback);
+    public void getHistorySearchKeys(SearchHistoryDataSource.HistorySearchCallback callback) {
+        mLocalDataSource.getHistorySearchKeys(callback);
     }
 
     @Override
-    public void saveHistorySearchIntoDB(List<SearchHistory> searchHistories, SearchHistoryDataSource.HistorySearchCallback callback) {
-        mLocalDataSource.saveHistorySearchIntoDB(searchHistories, callback);
+    public void saveHistory(List<SearchHistory> searchHistories, SearchHistoryDataSource.HistorySearchCallback callback) {
+        mLocalDataSource.saveHistory(searchHistories, callback);
     }
 
     @Override
-    public void deleteAllHistorySearchFromDB(SearchHistoryDataSource.HistorySearchCallback callback) {
-        mLocalDataSource.deleteAllHistorySearchFromDB(callback);
+    public void deleteAllHistory(SearchHistoryDataSource.HistorySearchCallback callback) {
+        mLocalDataSource.deleteAllHistory(callback);
     }
 }

@@ -27,7 +27,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void loadHistorySearch() {
-        mSearchHistoryRepository.getHistorySearchKey(
+        mSearchHistoryRepository.getHistorySearchKeys(
                 new SearchHistoryDataSource.HistorySearchCallback() {
                     @Override
                     public void onSuccess() {
@@ -47,7 +47,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void loadSearchResult(String searchKey) {
-        mSearchSongRepository.getSearchSong(searchKey, LIMIT,
+        mSearchSongRepository.getSearchSongs(searchKey, LIMIT,
                 new SongDataSource.LoadSongCallback() {
                     @Override
                     public void onSongsLoaded(List<Song> songs) {
@@ -63,7 +63,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void saveRecentSearch() {
-        mSearchHistoryRepository.saveHistorySearchIntoDB(null,
+        mSearchHistoryRepository.saveHistory(null,
                 new SearchHistoryDataSource.HistorySearchCallback() {
                     @Override
                     public void onSuccess() {
@@ -84,7 +84,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void clearSearchHistory() {
-        mSearchHistoryRepository.deleteAllHistorySearchFromDB(
+        mSearchHistoryRepository.deleteAllHistory(
                 new SearchHistoryDataSource.HistorySearchCallback() {
                     @Override
                     public void onSuccess() {

@@ -9,8 +9,9 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class SearchSongRemoteAsyncTask extends AsyncTask<String, Void, ArrayList<Song>> {
+public class SearchSongRemoteAsyncTask extends AsyncTask<String, Void, List<Song>> {
     private SongDataSource.LoadSongCallback mCallBack;
     private Exception mException;
     private String mSearchKey;
@@ -21,20 +22,21 @@ public class SearchSongRemoteAsyncTask extends AsyncTask<String, Void, ArrayList
     }
 
     @Override
-    protected ArrayList<Song> doInBackground(String... strings) {
-        ArrayList<Song> songs = new ArrayList<>();
+    protected List<Song> doInBackground(String... strings) {
+        List<Song> songs = new ArrayList<>();
         try {
             String json = SongLoaderUtils.getJSONFromAPI(strings[0]);
-            songs = SongLoaderUtils.getSearchSong(json);
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            songs = SongLoaderUtils.getSearchSongs(json);
+        } catch (IOException e) {
+            mException = e;
+        } catch (JSONException e) {
             mException = e;
         }
         return songs;
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Song> songs) {
+    protected void onPostExecute(List<Song> songs) {
         super.onPostExecute(songs);
         if (mCallBack == null) {
             return;
