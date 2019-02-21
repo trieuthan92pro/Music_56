@@ -1,6 +1,6 @@
 package com.example.soundcloud.data.source;
 
-import com.example.soundcloud.data.model.SearchHistory;
+import com.example.soundcloud.data.model.History;
 
 import java.util.List;
 
@@ -12,17 +12,18 @@ public class SearchHistoryRepository implements SearchHistoryDataSource.LocalDat
     }
 
     @Override
-    public void getHistorySearchKeys(SearchHistoryDataSource.HistorySearchCallback callback) {
-        mLocalDataSource.getHistorySearchKeys(callback);
+    public void getHistories(SearchHistoryDataSource.HistorySearchCallback callBack) {
+        mLocalDataSource.getHistories(callBack);
     }
 
     @Override
-    public void saveHistory(List<SearchHistory> searchHistories, SearchHistoryDataSource.HistorySearchCallback callback) {
-        mLocalDataSource.saveHistory(searchHistories, callback);
+    public void saveHistories(List<History> searchHistories,
+                              SearchHistoryDataSource.CallBack callBack) {
+        mLocalDataSource.saveHistories(searchHistories, callBack);
     }
 
     @Override
-    public void deleteAllHistory(SearchHistoryDataSource.HistorySearchCallback callback) {
-        mLocalDataSource.deleteAllHistory(callback);
+    public void clearHistories(SearchHistoryDataSource.CallBack callBack) {
+        mLocalDataSource.clearHistories(callBack);
     }
 }

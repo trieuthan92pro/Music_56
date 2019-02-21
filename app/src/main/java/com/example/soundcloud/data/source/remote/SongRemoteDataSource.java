@@ -13,7 +13,7 @@ public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
     }
 
     @Override
-    public void getSearchSongs(String searchKey, int limit, LoadSongCallback callBack) {
+    public void searchSong(String searchKey, int limit, LoadSongCallback callBack) {
         getSongsBySearchKey(searchKey, limit, callBack);
     }
 

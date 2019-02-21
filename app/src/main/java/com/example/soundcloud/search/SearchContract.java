@@ -2,7 +2,7 @@ package com.example.soundcloud.search;
 
 import com.example.soundcloud.BasePresenter;
 import com.example.soundcloud.BaseView;
-import com.example.soundcloud.data.model.SearchHistory;
+import com.example.soundcloud.data.model.History;
 import com.example.soundcloud.data.model.Song;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface SearchContract {
     interface View extends BaseView<Presenter> {
         void showProgressBar(boolean isLoading);
 
-        void showSearchHistory(List<SearchHistory> histories);
+        void showSearchHistory(List<History> histories);
 
         void showSearchResult(List<Song> songs);
 

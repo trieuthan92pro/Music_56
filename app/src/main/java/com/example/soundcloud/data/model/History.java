@@ -1,17 +1,17 @@
 package com.example.soundcloud.data.model;
 
-public class SearchHistory {
+public class History {
     private int mId;
     private String mSearchKey;
 
-    public SearchHistory() {
+    public History() {
     }
 
-    public SearchHistory(String searchKey) {
+    public History(String searchKey) {
         mSearchKey = searchKey;
     }
 
-    public SearchHistory(int id, String searchKey) {
+    public History(int id, String searchKey) {
         mId = id;
         mSearchKey = searchKey;
     }

@@ -1,6 +1,6 @@
 package com.example.soundcloud.search;
 
-import com.example.soundcloud.data.model.SearchHistory;
+import com.example.soundcloud.data.model.History;
 import com.example.soundcloud.data.model.Song;
 import com.example.soundcloud.data.source.SearchHistoryDataSource;
 import com.example.soundcloud.data.source.SearchHistoryRepository;
@@ -27,27 +27,27 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void loadHistorySearch() {
-        mSearchHistoryRepository.getHistorySearchKeys(
+        mSearchHistoryRepository.getHistories(
                 new SearchHistoryDataSource.HistorySearchCallback() {
                     @Override
                     public void onSuccess() {
                     }
 
                     @Override
-                    public void onSuccess(List<SearchHistory> searchHistories) {
+                    public void onSuccess(List<History> searchHistories) {
                         mView.showSearchHistory(searchHistories);
                     }
 
                     @Override
-                    public void onFailed(String errMsg) {
-                        mView.showError(errMsg);
+                    public void onFailed(Exception e) {
+                        mView.showError(e.getMessage());
                     }
                 });
     }
 
     @Override
     public void loadSearchResult(String searchKey) {
-        mSearchSongRepository.getSearchSongs(searchKey, LIMIT,
+        mSearchSongRepository.searchSong(searchKey, LIMIT,
                 new SongDataSource.LoadSongCallback() {
                     @Override
                     public void onSongsLoaded(List<Song> songs) {
@@ -63,41 +63,32 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void saveRecentSearch() {
-        mSearchHistoryRepository.saveHistory(null,
-                new SearchHistoryDataSource.HistorySearchCallback() {
+        mSearchHistoryRepository.saveHistories(null,
+                new SearchHistoryDataSource.CallBack() {
                     @Override
                     public void onSuccess() {
                         mView.showSuccess(MSG_SAVED);
                     }
 
                     @Override
-                    public void onSuccess(List<SearchHistory> searchHistories) {
-
-                    }
-
-                    @Override
-                    public void onFailed(String errMsg) {
-                        mView.showError(errMsg);
+                    public void onFailed(Exception e) {
+                        mView.showError(e.getMessage());
                     }
                 });
     }
 
     @Override
     public void clearSearchHistory() {
-        mSearchHistoryRepository.deleteAllHistory(
-                new SearchHistoryDataSource.HistorySearchCallback() {
+        mSearchHistoryRepository.clearHistories(
+                new SearchHistoryDataSource.CallBack() {
                     @Override
                     public void onSuccess() {
                         mView.showSuccess(MSG_CLEARED);
                     }
 
                     @Override
-                    public void onSuccess(List<SearchHistory> searchHistories) {
-                    }
-
-                    @Override
-                    public void onFailed(String errMsg) {
-                        mView.showError(errMsg);
+                    public void onFailed(Exception e) {
+                        mView.showError(e.getMessage());
                     }
                 });
     }

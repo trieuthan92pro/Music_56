@@ -14,6 +14,6 @@ public interface SongDataSource {
     interface RemoteDataSource {
         void getSongsByGenre(String genre, int limit, LoadSongCallback callback);
 
-        void getSearchSongs(String searchKey, int limit, LoadSongCallback callback);
+        void searchSong(String searchKey, int limit, LoadSongCallback callback);
     }
 }

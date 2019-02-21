@@ -9,13 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.example.soundcloud.R;
-import com.example.soundcloud.data.model.SearchHistory;
+import com.example.soundcloud.data.model.History;
 import com.example.soundcloud.data.model.Song;
 import com.example.soundcloud.data.source.SearchHistoryDataSource;
 import com.example.soundcloud.data.source.SearchHistoryRepository;
 import com.example.soundcloud.data.source.SongRepository;
 import com.example.soundcloud.data.source.local.HistorySearchDatabaseHelper;
-import com.example.soundcloud.data.source.local.HistorySearchLocalDataSource;
 import com.example.soundcloud.data.source.remote.SongRemoteDataSource;
 
 import java.util.List;
@@ -26,10 +25,9 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     private TextView mTextNumberSearchResult;
     private Group mGroupHistorySearch;
     private Group mGroupSearchResult;
-    private HistorySearchDatabaseHelper mDatabaseHelper;
+    private SearchHistoryDataSource.LocalDataSource mDatabaseHelper;
     private SearchHistoryRepository mSearchHistoryRepository;
     private SearchContract.Presenter mPresenter;
-    private SearchHistoryDataSource.LocalDataSource mSearchLocalDataSource;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, SearchActivity.class);
@@ -45,8 +43,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     private void loadData() {
         mDatabaseHelper = HistorySearchDatabaseHelper.getInstance(this);
-        mSearchLocalDataSource = new HistorySearchLocalDataSource(mDatabaseHelper);
-        mSearchHistoryRepository = new SearchHistoryRepository(mSearchLocalDataSource);
+        mSearchHistoryRepository = new SearchHistoryRepository(mDatabaseHelper);
         SongRemoteDataSource mRemoteDataSource = new SongRemoteDataSource();
         mPresenter = new SearchPresenter(mSearchHistoryRepository, this,
                 new SongRepository(mRemoteDataSource));
@@ -65,7 +62,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     @Override
-    public void showSearchHistory(List<SearchHistory> histories) {
+    public void showSearchHistory(List<History> histories) {
 
     }
 

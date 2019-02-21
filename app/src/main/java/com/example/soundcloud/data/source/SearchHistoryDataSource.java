@@ -1,6 +1,6 @@
 package com.example.soundcloud.data.source;
 
-import com.example.soundcloud.data.model.SearchHistory;
+import com.example.soundcloud.data.model.History;
 
 import java.util.List;
 
@@ -8,16 +8,22 @@ public interface SearchHistoryDataSource {
     interface HistorySearchCallback {
         void onSuccess();
 
-        void onSuccess(List<SearchHistory> histories);
+        void onSuccess(List<History> histories);
 
-        void onFailed(String errMsg);
+        void onFailed(Exception e);
+    }
+
+    interface CallBack {
+        void onSuccess();
+
+        void onFailed(Exception e);
     }
 
     interface LocalDataSource {
-        void getHistorySearchKeys(HistorySearchCallback callBack);
+        void getHistories(HistorySearchCallback callBack);
 
-        void saveHistory(List<SearchHistory> searchHistories, HistorySearchCallback callBack);
+        void saveHistories(List<History> searchHistories, CallBack callBack);
 
-        void deleteAllHistory(HistorySearchCallback callBack);
+        void clearHistories(CallBack callBack);
     }
 }
