@@ -7,35 +7,37 @@ import com.example.soundcloud.data.source.SearchHistoryRepository;
 import com.example.soundcloud.data.source.SongDataSource;
 import com.example.soundcloud.data.source.SongRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPresenter implements SearchContract.Presenter {
     private static final int LIMIT = 50;
+    private static final int MAX = 6;
     private static final String MSG_SAVED = "Saved data success";
     private static final String MSG_CLEARED = "Clear data success!";
-    private SearchHistoryRepository mSearchHistoryRepository;
+    private SearchHistoryRepository mHistoryRepository;
     private SearchContract.View mView;
     private SongRepository mSearchSongRepository;
+    private List<History> mSearchHistories;
+    private List<History> mRecentSearch;
 
     public SearchPresenter(SearchHistoryRepository searchHistoryRepository,
                            SearchContract.View view,
                            SongRepository searchSongRepository) {
-        mSearchHistoryRepository = searchHistoryRepository;
+        mHistoryRepository = searchHistoryRepository;
         mView = view;
         mSearchSongRepository = searchSongRepository;
+        mRecentSearch = new ArrayList<>();
     }
 
     @Override
     public void loadHistorySearch() {
-        mSearchHistoryRepository.getHistories(
+        mHistoryRepository.getHistories(
                 new SearchHistoryDataSource.HistorySearchCallback() {
-                    @Override
-                    public void onSuccess() {
-                    }
-
-                    @Override
                     public void onSuccess(List<History> searchHistories) {
-                        mView.showSearchHistory(searchHistories);
+                        mSearchHistories = searchHistories;
+                        int max = searchHistories.size() < MAX ? searchHistories.size() : 6;
+                        mView.showSearchHistory(searchHistories.subList(0, max));
                     }
 
                     @Override
@@ -51,11 +53,13 @@ public class SearchPresenter implements SearchContract.Presenter {
                 new SongDataSource.LoadSongCallback() {
                     @Override
                     public void onSongsLoaded(List<Song> songs) {
+                        mView.showProgressBar(false);
                         mView.showSearchResult(songs);
                     }
 
                     @Override
                     public void onDataNotAvailable(Exception e) {
+                        mView.showProgressBar(false);
                         mView.showError(e.getMessage());
                     }
                 });
@@ -63,7 +67,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void saveRecentSearch() {
-        mSearchHistoryRepository.saveHistories(null,
+        mHistoryRepository.saveHistories(mRecentSearch,
                 new SearchHistoryDataSource.CallBack() {
                     @Override
                     public void onSuccess() {
@@ -79,7 +83,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void clearSearchHistory() {
-        mSearchHistoryRepository.clearHistories(
+        mHistoryRepository.clearHistories(
                 new SearchHistoryDataSource.CallBack() {
                     @Override
                     public void onSuccess() {
@@ -96,5 +100,16 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void start() {
         loadHistorySearch();
+    }
+
+    @Override
+    public List<History> getSearchHistories() {
+        return mSearchHistories;
+    }
+
+    @Override
+    public void addSearchKey(History searchHistory) {
+        mRecentSearch.add(searchHistory);
+        mSearchHistories.add(searchHistory);
     }
 }

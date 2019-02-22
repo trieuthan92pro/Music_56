@@ -18,6 +18,8 @@ public interface SearchContract {
         void showError(String errMsg);
 
         void showSuccess(String msg);
+
+        void showMoreHistory();
     }
 
     interface Presenter extends BasePresenter {
@@ -28,5 +30,9 @@ public interface SearchContract {
         void saveRecentSearch();
 
         void clearSearchHistory();
+
+        List<History> getSearchHistories();
+
+        void addSearchKey(History searchHistory);
     }
 }
