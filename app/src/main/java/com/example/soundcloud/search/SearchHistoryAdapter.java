@@ -43,8 +43,14 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         return mSearchHistories == null ? 0 : mSearchHistories.size();
     }
 
-    public void setSearchHistories(List<History> searchHistories) {
-        mSearchHistories = searchHistories;
+    public void setData(List<History> searchHistories) {
+        if (mSearchHistories == null) {
+            mSearchHistories = searchHistories;
+        } else {
+            mSearchHistories.clear();
+            mSearchHistories.addAll(searchHistories);
+        }
+
     }
 
     public interface OnSearchHistoryItemClickListener {
@@ -57,7 +63,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTextHistorySearchItem = itemView.findViewById(R.id.item_text_history_search);
+            mTextHistorySearchItem = itemView.findViewById(R.id.text_history_search);
         }
 
         public ViewHolder(@NonNull View view, OnSearchHistoryItemClickListener listener) {

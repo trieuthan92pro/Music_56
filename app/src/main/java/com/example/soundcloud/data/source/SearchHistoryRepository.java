@@ -12,8 +12,8 @@ public class SearchHistoryRepository implements SearchHistoryDataSource.LocalDat
     }
 
     @Override
-    public void getHistories(SearchHistoryDataSource.HistorySearchCallback callBack) {
-        mLocalDataSource.getHistories(callBack);
+    public void getHistories(String limit, SearchHistoryDataSource.HistorySearchCallback callBack) {
+        mLocalDataSource.getHistories(limit, callBack);
     }
 
     @Override

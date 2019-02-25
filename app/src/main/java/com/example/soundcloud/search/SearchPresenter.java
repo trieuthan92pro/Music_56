@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SearchPresenter implements SearchContract.Presenter {
     private static final int LIMIT = 50;
-    private static final int MAX = 6;
+    private static final String LIMIT_6 = "6";
     private static final String MSG_SAVED = "Saved data success";
     private static final String MSG_CLEARED = "Clear data success!";
     private SearchHistoryRepository mHistoryRepository;
@@ -20,6 +20,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     private SongRepository mSearchSongRepository;
     private List<History> mSearchHistories;
     private List<History> mRecentSearch;
+    private String searchKey;
 
     public SearchPresenter(SearchHistoryRepository searchHistoryRepository,
                            SearchContract.View view,
@@ -31,13 +32,12 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void loadHistorySearch() {
-        mHistoryRepository.getHistories(
+    public void loadHistorySearch(String limit) {
+        mHistoryRepository.getHistories( limit,
                 new SearchHistoryDataSource.HistorySearchCallback() {
                     public void onSuccess(List<History> searchHistories) {
                         mSearchHistories = searchHistories;
-                        int max = searchHistories.size() < MAX ? searchHistories.size() : 6;
-                        mView.showSearchHistory(searchHistories.subList(0, max));
+                        mView.showSearchHistory(searchHistories);
                     }
 
                     @Override
@@ -99,7 +99,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void start() {
-        loadHistorySearch();
+        loadHistorySearch(LIMIT_6);
     }
 
     @Override
@@ -111,5 +111,23 @@ public class SearchPresenter implements SearchContract.Presenter {
     public void addSearchKey(History searchHistory) {
         mRecentSearch.add(searchHistory);
         mSearchHistories.add(searchHistory);
+    }
+
+    @Override
+    public void onQueryTextSubmit(String query) {
+        setSearchKey(query);
+        loadSearchResult(query);
+        addSearchKey(new History(query));
+        mView.showProgressBar(true);
+    }
+
+    @Override
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    @Override
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
     }
 }

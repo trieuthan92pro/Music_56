@@ -18,7 +18,7 @@ public interface SearchHistoryDataSource {
     }
 
     interface LocalDataSource {
-        void getHistories(HistorySearchCallback callBack);
+        void getHistories(String limit, HistorySearchCallback callBack);
 
         void saveHistories(List<History> searchHistories, CallBack callBack);
 

@@ -23,7 +23,7 @@ public interface SearchContract {
     }
 
     interface Presenter extends BasePresenter {
-        void loadHistorySearch();
+        void loadHistorySearch(String limit);
 
         void loadSearchResult(String searchKey);
 
@@ -34,5 +34,11 @@ public interface SearchContract {
         List<History> getSearchHistories();
 
         void addSearchKey(History searchHistory);
+
+        void onQueryTextSubmit(String query);
+
+        String getSearchKey();
+
+        void setSearchKey(String searchKey);
     }
 }

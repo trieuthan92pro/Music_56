@@ -53,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="invisible"
-        app:constraint_referenced_ids="recycler_view_search_history,image_more_hostory,text_history_search,text_view_more_history,text_action_clear"
+        app:constraint_referenced_ids="recycler_view_search_history,image_more_hostory,text_history_search_result,text_view_more_history,text_action_clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,10 +67,10 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_history_search" />
+        app:layout_constraintTop_toBottomOf="@+id/text_history_search_result" />
 
     <TextView
-        android:id="@+id/text_history_search"
+        android:id="@+id/text_history_search_result"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16"
@@ -134,7 +134,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/text_history_search" />
+        app:layout_constraintTop_toTopOf="@+id/text_history_search_result" />
 
     <android.support.constraint.Group
         android:id="@+id/group_search_result"

@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -30,7 +29,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         SearchView.OnQueryTextListener, SearchResultAdapter.OnItemClickListener,
         SearchHistoryAdapter.OnSearchHistoryItemClickListener {
     private static final String MSG_RESULT = " Result(s) for \"";
-    private static String sSearchKey;
+    private static final String LIMIT = "50";
     private RecyclerView mRecyclerSearchResult;
     private RecyclerView mRecyclerSearchHistory;
     private TextView mTextNumberSearchResult;
@@ -74,16 +73,15 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     @Override
     public void showSearchHistory(List<History> histories) {
-        mSearchHistoryAdapter.setSearchHistories(histories);
-        Log.e("SIZE", histories.size() + "");
-        mSearchHistoryAdapter.notifyDataSetChanged();
+        mSearchHistoryAdapter.setData(histories);
+        mSearchHistoryAdapter.notifyItemRangeChanged(0, histories.size());
     }
 
     @Override
     public void showSearchResult(List<Song> songs) {
-        mTextNumberSearchResult.setText(songs.size() + MSG_RESULT + sSearchKey + "\"");
-        mSearchResultAdapter.setSongs(songs);
-        mSearchResultAdapter.notifyDataSetChanged();
+        mTextNumberSearchResult.setText(songs.size() + MSG_RESULT + mPresenter.getSearchKey() + "\"");
+        mSearchResultAdapter.setData(songs);
+        mSearchResultAdapter.notifyItemRangeChanged(0, songs.size());
     }
 
     @Override
@@ -98,7 +96,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     @Override
     public void showMoreHistory() {
-        mSearchHistoryAdapter.setSearchHistories(mPresenter.getSearchHistories());
+        mPresenter.loadHistorySearch(LIMIT);
     }
 
     @Override
@@ -108,10 +106,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        sSearchKey = query;
-        mPresenter.loadSearchResult(query);
-        mPresenter.addSearchKey(new History(query));
-        showProgressBar(true);
+        mPresenter.onQueryTextSubmit(query);
         showSearchResultGroup(true);
         return false;
     }

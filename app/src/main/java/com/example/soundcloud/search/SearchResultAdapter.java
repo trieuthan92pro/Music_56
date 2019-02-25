@@ -45,8 +45,12 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         return mSongs == null ? 0 : mSongs.size();
     }
 
-    public void setSongs(List<Song> songs) {
-        mSongs = songs;
+    public void setData(List<Song> songs) {
+        if (mSongs == null) {
+            mSongs = songs;
+        } else {
+            mSongs.addAll(songs);
+        }
     }
 
     public interface OnItemClickListener {
