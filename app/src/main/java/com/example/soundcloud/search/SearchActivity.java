@@ -142,11 +142,10 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         String searchKey = mPresenter.getSearchHistories().get(position).getSearchKey();
         mPresenter.setAddSearchKey(false);
         mSearchView.setQuery(searchKey, true);
-//        mPresenter.loadSearchResult(searchKey);
     }
 
     @Override
-    public void downLoad(int position) {
+    public void download(int position) {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -163,7 +162,8 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE && grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

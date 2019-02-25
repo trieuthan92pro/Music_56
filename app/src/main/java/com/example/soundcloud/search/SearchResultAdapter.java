@@ -56,7 +56,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public interface OnItemClickListener {
         void onItemClick(int position);
 
-        void downLoad(int position);
+        void download(int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -98,7 +98,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.image_item_song_download:
-                    mOnItemClickListener.downLoad(getAdapterPosition());
+                    mOnItemClickListener.download(getAdapterPosition());
                     break;
 
                 case R.id.image_item_song_option:
