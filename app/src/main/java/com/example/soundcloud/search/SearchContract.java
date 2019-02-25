@@ -18,15 +18,27 @@ public interface SearchContract {
         void showError(String errMsg);
 
         void showSuccess(String msg);
+
+        void showMoreHistory();
     }
 
     interface Presenter extends BasePresenter {
-        void loadHistorySearch();
+        void loadHistorySearch(String limit);
 
         void loadSearchResult(String searchKey);
 
         void saveRecentSearch();
 
         void clearSearchHistory();
+
+        List<History> getSearchHistories();
+
+        void addSearchKey(History searchHistory);
+
+        void onQueryTextSubmit(String query);
+
+        String getSearchKey();
+
+        void setSearchKey(String searchKey);
     }
 }

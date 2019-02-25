@@ -67,11 +67,11 @@ public class HistorySearchDatabaseHelper extends SQLiteOpenHelper implements Sea
         }
     }
 
-    public void selectHistories(SearchHistoryDataSource.HistorySearchCallback callBack) {
+    public void selectHistories(String limit, SearchHistoryDataSource.HistorySearchCallback callBack) {
         List<History> histories = new ArrayList<>();
         Exception exception = null;
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null, limit);
         cursor.moveToFirst();
         try {
             while (!cursor.isAfterLast()) {
@@ -111,8 +111,8 @@ public class HistorySearchDatabaseHelper extends SQLiteOpenHelper implements Sea
     }
 
     @Override
-    public void getHistories(SearchHistoryDataSource.HistorySearchCallback callBack) {
-        selectHistories(callBack);
+    public void getHistories(String limit, SearchHistoryDataSource.HistorySearchCallback callBack) {
+        selectHistories(limit, callBack);
     }
 
     @Override

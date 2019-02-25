@@ -7,34 +7,36 @@ import com.example.soundcloud.data.source.SearchHistoryRepository;
 import com.example.soundcloud.data.source.SongDataSource;
 import com.example.soundcloud.data.source.SongRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPresenter implements SearchContract.Presenter {
     private static final int LIMIT = 50;
+    private static final String LIMIT_6 = "6";
     private static final String MSG_SAVED = "Saved data success";
     private static final String MSG_CLEARED = "Clear data success!";
-    private SearchHistoryRepository mSearchHistoryRepository;
+    private SearchHistoryRepository mHistoryRepository;
     private SearchContract.View mView;
     private SongRepository mSearchSongRepository;
+    private List<History> mSearchHistories;
+    private List<History> mRecentSearch;
+    private String searchKey;
 
     public SearchPresenter(SearchHistoryRepository searchHistoryRepository,
                            SearchContract.View view,
                            SongRepository searchSongRepository) {
-        mSearchHistoryRepository = searchHistoryRepository;
+        mHistoryRepository = searchHistoryRepository;
         mView = view;
         mSearchSongRepository = searchSongRepository;
+        mRecentSearch = new ArrayList<>();
     }
 
     @Override
-    public void loadHistorySearch() {
-        mSearchHistoryRepository.getHistories(
+    public void loadHistorySearch(String limit) {
+        mHistoryRepository.getHistories( limit,
                 new SearchHistoryDataSource.HistorySearchCallback() {
-                    @Override
-                    public void onSuccess() {
-                    }
-
-                    @Override
                     public void onSuccess(List<History> searchHistories) {
+                        mSearchHistories = searchHistories;
                         mView.showSearchHistory(searchHistories);
                     }
 
@@ -51,11 +53,13 @@ public class SearchPresenter implements SearchContract.Presenter {
                 new SongDataSource.LoadSongCallback() {
                     @Override
                     public void onSongsLoaded(List<Song> songs) {
+                        mView.showProgressBar(false);
                         mView.showSearchResult(songs);
                     }
 
                     @Override
                     public void onDataNotAvailable(Exception e) {
+                        mView.showProgressBar(false);
                         mView.showError(e.getMessage());
                     }
                 });
@@ -63,7 +67,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void saveRecentSearch() {
-        mSearchHistoryRepository.saveHistories(null,
+        mHistoryRepository.saveHistories(mRecentSearch,
                 new SearchHistoryDataSource.CallBack() {
                     @Override
                     public void onSuccess() {
@@ -79,7 +83,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void clearSearchHistory() {
-        mSearchHistoryRepository.clearHistories(
+        mHistoryRepository.clearHistories(
                 new SearchHistoryDataSource.CallBack() {
                     @Override
                     public void onSuccess() {
@@ -95,6 +99,35 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void start() {
-        loadHistorySearch();
+        loadHistorySearch(LIMIT_6);
+    }
+
+    @Override
+    public List<History> getSearchHistories() {
+        return mSearchHistories;
+    }
+
+    @Override
+    public void addSearchKey(History searchHistory) {
+        mRecentSearch.add(searchHistory);
+        mSearchHistories.add(searchHistory);
+    }
+
+    @Override
+    public void onQueryTextSubmit(String query) {
+        setSearchKey(query);
+        loadSearchResult(query);
+        addSearchKey(new History(query));
+        mView.showProgressBar(true);
+    }
+
+    @Override
+    public String getSearchKey() {
+        return searchKey;
+    }
+
+    @Override
+    public void setSearchKey(String searchKey) {
+        this.searchKey = searchKey;
     }
 }
