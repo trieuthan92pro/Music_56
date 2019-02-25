@@ -31,7 +31,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mLayoutInflater.inflate(R.layout.item_song, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mItemClickListener);
     }
 
     @Override
@@ -55,9 +55,11 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+
+        void downLoad(int position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextSongTitle;
         private TextView mTextSongArtist;
         private ImageView mImageArtwork;
@@ -70,10 +72,16 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             mTextSongArtist = itemView.findViewById(R.id.text_song_item_artist);
             mTextSongTitle = itemView.findViewById(R.id.text_song_item_title);
             mImageArtwork = itemView.findViewById(R.id.image_song_item_artwork);
+
+            mTextSongArtist.setOnClickListener(this);
+            mTextSongTitle.setOnClickListener(this);
+            mImageArtwork.setOnClickListener(this);
+            itemView.findViewById(R.id.image_item_song_download).setOnClickListener(this);
+            itemView.findViewById(R.id.image_item_song_option);
         }
 
         public ViewHolder(@NonNull View view, OnItemClickListener listener) {
-            super(view);
+            this(view);
             mOnItemClickListener = listener;
         }
 
@@ -84,6 +92,27 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             Glide.with(mContext).load(song.getArtworkUrl())
                     .error(R.drawable.ic_artwork_item_default)
                     .into(mImageArtwork);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.image_item_song_download:
+                    mOnItemClickListener.downLoad(getAdapterPosition());
+                    break;
+
+                case R.id.image_item_song_option:
+                    //TODO: impliment this latter
+                    break;
+
+                case R.id.image_song_item_artwork:
+                case R.id.text_song_item_artist:
+                case R.id.text_song_item_title:
+                    mOnItemClickListener.onItemClick(getAdapterPosition());
+
+                default:
+                    break;
+            }
         }
     }
 }

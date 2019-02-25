@@ -1,5 +1,6 @@
 package com.example.soundcloud.search;
 
+import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.model.History;
 import com.example.soundcloud.data.model.Song;
 import com.example.soundcloud.data.source.SearchHistoryDataSource;
@@ -12,7 +13,8 @@ import java.util.List;
 
 public class SearchPresenter implements SearchContract.Presenter {
     private static final int LIMIT = 50;
-    private static final String LIMIT_6 = "6";
+    private static final String LIMIT_12 = "12";
+    private static final String GENRE = "SEARCH";
     private static final String MSG_SAVED = "Saved data success";
     private static final String MSG_CLEARED = "Clear data success!";
     private SearchHistoryRepository mHistoryRepository;
@@ -21,6 +23,8 @@ public class SearchPresenter implements SearchContract.Presenter {
     private List<History> mSearchHistories;
     private List<History> mRecentSearch;
     private String searchKey;
+    private Genre mGenre;
+    private boolean mIsAdding;
 
     public SearchPresenter(SearchHistoryRepository searchHistoryRepository,
                            SearchContract.View view,
@@ -55,6 +59,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                     public void onSongsLoaded(List<Song> songs) {
                         mView.showProgressBar(false);
                         mView.showSearchResult(songs);
+                        mGenre = new Genre(GENRE, songs);
                     }
 
                     @Override
@@ -87,7 +92,8 @@ public class SearchPresenter implements SearchContract.Presenter {
                 new SearchHistoryDataSource.CallBack() {
                     @Override
                     public void onSuccess() {
-                        mView.showSuccess(MSG_CLEARED);
+                        mSearchHistories.clear();
+                        mView.showSearchHistory(mSearchHistories);
                     }
 
                     @Override
@@ -99,7 +105,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void start() {
-        loadHistorySearch(LIMIT_6);
+        loadHistorySearch(LIMIT_12);
     }
 
     @Override
@@ -109,15 +115,27 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void addSearchKey(History searchHistory) {
-        mRecentSearch.add(searchHistory);
         mSearchHistories.add(searchHistory);
+    }
+
+    @Override
+    public void addSearchKey(History searchHistory, boolean isAdding) {
+        if (isAdding) {
+            mRecentSearch.add(searchHistory);
+            mSearchHistories.add(searchHistory);
+        }
+    }
+
+    @Override
+    public Genre getGenre() {
+        return mGenre;
     }
 
     @Override
     public void onQueryTextSubmit(String query) {
         setSearchKey(query);
         loadSearchResult(query);
-        addSearchKey(new History(query));
+        addSearchKey(new History(query), mIsAdding);
         mView.showProgressBar(true);
     }
 
@@ -129,5 +147,10 @@ public class SearchPresenter implements SearchContract.Presenter {
     @Override
     public void setSearchKey(String searchKey) {
         this.searchKey = searchKey;
+    }
+
+    @Override
+    public void setAddSearchKey(boolean isAdding){
+        mIsAdding = isAdding;
     }
 }

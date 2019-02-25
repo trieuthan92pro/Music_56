@@ -29,7 +29,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mLayoutInflater.inflate(R.layout.item_history_search, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnSearchHistoryItemClickListener);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         void onSearchHistoryItemClick(int position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextHistorySearchItem;
         private OnSearchHistoryItemClickListener mItemClickListener;
 
@@ -69,10 +69,16 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         public ViewHolder(@NonNull View view, OnSearchHistoryItemClickListener listener) {
             this(view);
             mItemClickListener = listener;
+            mTextHistorySearchItem.setOnClickListener(this);
         }
 
         public void bindData(History history) {
             mTextHistorySearchItem.setText(history.getSearchKey());
+        }
+
+        @Override
+        public void onClick(View v) {
+            mItemClickListener.onSearchHistoryItemClick(getAdapterPosition());
         }
     }
 }
