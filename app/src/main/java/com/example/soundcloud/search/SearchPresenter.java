@@ -13,7 +13,7 @@ import java.util.List;
 
 public class SearchPresenter implements SearchContract.Presenter {
     private static final int LIMIT = 50;
-    private static final String LIMIT_12 = "12";
+    private static final String LIMIT_SEARCH_DEFAULT = "12";
     private static final String GENRE = "SEARCH";
     private static final String MSG_SAVED = "Saved data success";
     private static final String MSG_CLEARED = "Clear data success!";
@@ -105,7 +105,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void start() {
-        loadHistorySearch(LIMIT_12);
+        loadHistorySearch(LIMIT_SEARCH_DEFAULT);
     }
 
     @Override

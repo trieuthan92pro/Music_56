@@ -50,7 +50,21 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
             mSearchHistories.clear();
             mSearchHistories.addAll(searchHistories);
         }
+    }
 
+    public int addData(List<History> searchHistories) {
+        int recentSize = 0;
+        if (mSearchHistories == null) {
+            mSearchHistories = searchHistories;
+        } else {
+            recentSize = mSearchHistories.size();
+            if (searchHistories != null) {
+                for (int i = recentSize; i < searchHistories.size(); i++) {
+                    mSearchHistories.add(searchHistories.get(i));
+                }
+            }
+        }
+        return recentSize;
     }
 
     public interface OnSearchHistoryItemClickListener {

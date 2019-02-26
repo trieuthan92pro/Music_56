@@ -86,8 +86,8 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         if (isUpdateHistory) {
             updateHistory(histories);
         } else {
-            mHistoryAdapter.setData(histories);
-            mHistoryAdapter.notifyItemRangeChanged(0, histories.size());
+            int position = mHistoryAdapter.addData(histories);
+            mHistoryAdapter.notifyItemRangeChanged(position, histories.size());
         }
     }
 
@@ -149,13 +149,9 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        REQUEST_WRITE_EXTERNAL_STORAGE);
-            }
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_EXTERNAL_STORAGE);
         } else {
             //TODO: implement download feature here
         }
