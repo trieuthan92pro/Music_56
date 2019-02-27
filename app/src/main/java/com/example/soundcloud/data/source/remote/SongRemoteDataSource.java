@@ -6,7 +6,17 @@ import com.example.soundcloud.data.source.SongDataSource;
 import com.example.soundcloud.data.source.SongDataSource.LoadSongCallback;
 
 public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
+    private static SongRemoteDataSource sInstance;
 
+    private SongRemoteDataSource() {
+    }
+
+    public static SongRemoteDataSource getInstance() {
+        if (sInstance == null) {
+            sInstance = new SongRemoteDataSource();
+        }
+        return sInstance;
+    }
     @Override
     public void getSongsByGenre(String genre, int limit, LoadSongCallback callBack) {
         getSongsDataFromAPI(genre, limit, callBack);

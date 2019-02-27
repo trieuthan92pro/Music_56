@@ -44,10 +44,7 @@ public class DiscoverFragment extends Fragment
         mDiscoverAdapter = new DiscoverVerticalAdapter(getContext(), this, this);
         mRecyclerView.setAdapter(mDiscoverAdapter);
         mRecyclerView.setHasFixedSize(true);
-        SongDataSource.RemoteDataSource remoteDataSource = new SongRemoteDataSource();
-        SongDataSource.LocalDataSource localDataSource =
-                new SongLocalDataSource(getActivity().getContentResolver());
-        mPresenter = new DiscoverPresenter(this, SongRepository.getInstance(remoteDataSource, localDataSource),
+        mPresenter = new DiscoverPresenter(this, SongRepository.getInstance(),
                 getContext().getResources().getStringArray(R.array.array_genre_titles));
         mPresenter.start();
         return view;
