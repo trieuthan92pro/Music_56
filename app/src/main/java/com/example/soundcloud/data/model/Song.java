@@ -2,7 +2,9 @@ package com.example.soundcloud.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.example.soundcloud.data.source.remote.SongLoaderUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +47,23 @@ public class Song implements Parcelable {
         mDownloadURL = jsonObject.getString(JSonKey.DOWNLOAD_URL);
         mArtist = SongLoaderUtils.getPublisherMetadataItem(jsonObject, JSonKey.ARTIST);
         mAlbum = SongLoaderUtils.getPublisherMetadataItem(jsonObject, JSonKey.ALBUM);
+    }
+
+    public Song(int id, int duration, String title, String artworkUrl, String genre,
+                String downloadURL, String artist, boolean downloadable, boolean downloaded,
+                boolean isFavorite, String songType, String album) {
+        mId = id;
+        mDuration = duration;
+        mTitle = title;
+        mArtworkUrl = artworkUrl;
+        mGenre = genre;
+        mDownloadURL = downloadURL;
+        mArtist = artist;
+        mDownloadable = downloadable;
+        mDownloaded = downloaded;
+        mIsFavorite = isFavorite;
+        mSongType = songType;
+        mAlbum = album;
     }
 
     protected Song(Parcel in) {
