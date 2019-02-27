@@ -1,5 +1,8 @@
 package com.example.soundcloud.data.source;
 
+import com.example.soundcloud.data.source.local.SongLocalDataSource;
+import com.example.soundcloud.data.source.remote.SongRemoteDataSource;
+
 public class SongRepository implements SongDataSource.RemoteDataSource,
         SongDataSource.LocalDataSource {
     private static SongRepository sSongRepository;
@@ -16,10 +19,10 @@ public class SongRepository implements SongDataSource.RemoteDataSource,
         mLocalDataSource = localDataSource;
     }
 
-    public static SongRepository getInstance(SongDataSource.RemoteDataSource remoteDataSource,
-                                             SongDataSource.LocalDataSource localDataSource) {
+    public static SongRepository getInstance() {
         if(sSongRepository == null) {
-            sSongRepository = new SongRepository(remoteDataSource, localDataSource);
+            sSongRepository = new SongRepository(SongRemoteDataSource.getInstance(),
+                    SongLocalDataSource.getInstance());
         }
         return sSongRepository;
     }
