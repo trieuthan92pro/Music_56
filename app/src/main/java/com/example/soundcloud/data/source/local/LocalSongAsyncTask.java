@@ -62,8 +62,19 @@ public class LocalSongAsyncTask extends AsyncTask<Void, Void, List<Song>> {
             String artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
             int intDuration = Integer.parseInt(duraion);
             int intId = Integer.parseInt(id);
-            Song song = new Song(intId, intDuration, title, null, null, data, artist, false, true,
-                    false, SongType.TYPE_LOCAL, album);
+            Song song = new Song();
+            song.setId(intId);
+            song.setDuration(intDuration);
+            song.setTitle(title);
+            song.setArtist(artist);
+            song.setSongType(SongType.TYPE_LOCAL);
+            song.setAlbum(album);
+            song.setDownloadURL(data);
+            song.setDownloadable(false);
+            song.setDownloaded(true);
+            song.setArtworkUrl(null);
+            song.setFavorite(false);
+            song.setGenre(null);
             songs.add(song);
         }
         cursor.close();

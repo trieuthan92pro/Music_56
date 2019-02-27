@@ -24,8 +24,10 @@ import com.example.soundcloud.data.model.History;
 import com.example.soundcloud.data.model.Song;
 import com.example.soundcloud.data.source.SearchHistoryDataSource;
 import com.example.soundcloud.data.source.SearchHistoryRepository;
+import com.example.soundcloud.data.source.SongDataSource;
 import com.example.soundcloud.data.source.SongRepository;
 import com.example.soundcloud.data.source.local.HistorySearchDatabaseHelper;
+import com.example.soundcloud.data.source.local.SongLocalDataSource;
 import com.example.soundcloud.data.source.remote.SongRemoteDataSource;
 import com.example.soundcloud.play_detail.PlayDetailActivity;
 
@@ -213,9 +215,10 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     private void loadData() {
         mDatabaseHelper = HistorySearchDatabaseHelper.getInstance(this);
         mSearchHistoryRepository = new SearchHistoryRepository(mDatabaseHelper);
-        SongRemoteDataSource mRemoteDataSource = new SongRemoteDataSource();
+        SongDataSource.RemoteDataSource remoteDataSource = new SongRemoteDataSource();
+        SongDataSource.LocalDataSource localDataSource = new SongLocalDataSource(getContentResolver());
         mPresenter = new SearchPresenter(mSearchHistoryRepository, this,
-                new SongRepository(mRemoteDataSource));
+                SongRepository.getInstance(remoteDataSource, localDataSource));
         showSearchResultGroup(false);
         isUpdateHistory = false;
         mPresenter.start();

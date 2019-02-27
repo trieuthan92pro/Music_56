@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import com.example.soundcloud.R;
 import com.example.soundcloud.data.model.Genre;
+import com.example.soundcloud.data.source.SongDataSource;
 import com.example.soundcloud.data.source.SongRepository;
+import com.example.soundcloud.data.source.local.SongLocalDataSource;
 import com.example.soundcloud.data.source.remote.SongRemoteDataSource;
 import com.example.soundcloud.play_detail.PlayDetailActivity;
 import com.example.soundcloud.selected_genre_detail.SelectedGenreActivity;
@@ -42,8 +44,10 @@ public class DiscoverFragment extends Fragment
         mDiscoverAdapter = new DiscoverVerticalAdapter(getContext(), this, this);
         mRecyclerView.setAdapter(mDiscoverAdapter);
         mRecyclerView.setHasFixedSize(true);
-        SongRemoteDataSource mRemoteDataSource = new SongRemoteDataSource();
-        mPresenter = new DiscoverPresenter(this, new SongRepository(mRemoteDataSource),
+        SongDataSource.RemoteDataSource remoteDataSource = new SongRemoteDataSource();
+        SongDataSource.LocalDataSource localDataSource =
+                new SongLocalDataSource(getActivity().getContentResolver());
+        mPresenter = new DiscoverPresenter(this, SongRepository.getInstance(remoteDataSource, localDataSource),
                 getContext().getResources().getStringArray(R.array.array_genre_titles));
         mPresenter.start();
         return view;
