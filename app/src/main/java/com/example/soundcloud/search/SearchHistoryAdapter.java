@@ -29,7 +29,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mLayoutInflater.inflate(R.layout.item_history_search, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnSearchHistoryItemClickListener);
     }
 
     @Override
@@ -50,14 +50,28 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
             mSearchHistories.clear();
             mSearchHistories.addAll(searchHistories);
         }
+    }
 
+    public int addData(List<History> searchHistories) {
+        int recentSize = 0;
+        if (mSearchHistories == null) {
+            mSearchHistories = searchHistories;
+        } else {
+            recentSize = mSearchHistories.size();
+            if (searchHistories != null) {
+                for (int i = recentSize; i < searchHistories.size(); i++) {
+                    mSearchHistories.add(searchHistories.get(i));
+                }
+            }
+        }
+        return recentSize;
     }
 
     public interface OnSearchHistoryItemClickListener {
         void onSearchHistoryItemClick(int position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextHistorySearchItem;
         private OnSearchHistoryItemClickListener mItemClickListener;
 
@@ -69,10 +83,16 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         public ViewHolder(@NonNull View view, OnSearchHistoryItemClickListener listener) {
             this(view);
             mItemClickListener = listener;
+            mTextHistorySearchItem.setOnClickListener(this);
         }
 
         public void bindData(History history) {
             mTextHistorySearchItem.setText(history.getSearchKey());
+        }
+
+        @Override
+        public void onClick(View v) {
+            mItemClickListener.onSearchHistoryItemClick(getAdapterPosition());
         }
     }
 }

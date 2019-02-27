@@ -2,6 +2,7 @@ package com.example.soundcloud.search;
 
 import com.example.soundcloud.BasePresenter;
 import com.example.soundcloud.BaseView;
+import com.example.soundcloud.data.model.Genre;
 import com.example.soundcloud.data.model.History;
 import com.example.soundcloud.data.model.Song;
 
@@ -40,5 +41,11 @@ public interface SearchContract {
         String getSearchKey();
 
         void setSearchKey(String searchKey);
+
+        void addSearchKey(History searchHistory, boolean isAdding);
+
+        Genre getGenre();
+
+        void setAddSearchKey(boolean isAdding);
     }
 }

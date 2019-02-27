@@ -32,6 +32,12 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mSearchView.setIconified(true);
+    }
+
+    @Override
     public void setTabIcon(TabInfo[] tabInfos) {
         int selectedPosition = mTabLayout.getSelectedTabPosition();
         for (int i = 0; i < tabInfos.length; i++) {
