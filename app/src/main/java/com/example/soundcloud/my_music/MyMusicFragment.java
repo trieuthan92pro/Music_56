@@ -50,21 +50,7 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTextDownloaded = getActivity().findViewById(R.id.text_downloaded_song);
-        mTextErrMessage = getActivity().findViewById(R.id.text_error);
-        mImageFolder = getActivity().findViewById(R.id.image_folder);
-        mProgressBar = getActivity().findViewById(R.id.progress_bar_local);
-
-        mRecyclerLocalSongs = getActivity().findViewById(R.id.recycler_local_song);
-        mLocalSongAdapter = new LocalSongAdapter(getContext(), this);
-        mRecyclerLocalSongs.setAdapter(mLocalSongAdapter);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mRecyclerLocalSongs.setLayoutManager(layoutManager);
-        ContentResolver contentResolver = getContext().getContentResolver();
-        SongDataSource.LocalDataSource localDataSource = new SongLocalDataSource(contentResolver);
-        mRepository = SongRepository.getInstance();
-        mPresenter = new MyMusicPresenter(this, mRepository);
-
+        initView(view);
         addAction();
         if(isPermissionGranted()) {
             start();
@@ -155,6 +141,21 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View,
             mImageFolder.setVisibility(View.GONE);
             mTextDownloaded.setVisibility(View.GONE);
         }
+    }
+
+    private void initView(View view) {
+        mTextDownloaded = view.findViewById(R.id.text_downloaded_song);
+        mTextErrMessage = view.findViewById(R.id.text_error);
+        mImageFolder = view.findViewById(R.id.image_folder);
+        mProgressBar = view.findViewById(R.id.progress_bar_local);
+        mRecyclerLocalSongs = view.findViewById(R.id.recycler_local_song);
+        mLocalSongAdapter = new LocalSongAdapter(getContext(), this);
+        mRecyclerLocalSongs.setAdapter(mLocalSongAdapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerLocalSongs.setLayoutManager(layoutManager);
+        ContentResolver contentResolver = getContext().getContentResolver();
+        mRepository = SongRepository.getInstance();
+        mPresenter = new MyMusicPresenter(this, mRepository);
     }
 
     private void showErrorView(boolean isShowing) {

@@ -17,6 +17,7 @@ public class SongRemoteDataSource implements SongDataSource.RemoteDataSource {
         }
         return sInstance;
     }
+
     @Override
     public void getSongsByGenre(String genre, int limit, LoadSongCallback callBack) {
         getSongsDataFromAPI(genre, limit, callBack);
