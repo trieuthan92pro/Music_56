@@ -55,7 +55,7 @@ public class LocalSongAdapter extends RecyclerView.Adapter<LocalSongAdapter.View
         void onSongItemClick(int position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private OnLocalSongItemListener mItemListener;
         private TextView mTextSongTitle;
         private TextView mTextSongArtist;
@@ -70,11 +70,29 @@ public class LocalSongAdapter extends RecyclerView.Adapter<LocalSongAdapter.View
             mTextSongTitle = itemView.findViewById(R.id.text_song_item_title);
             mImageArtwork = itemView.findViewById(R.id.image_song_item_artwork);
             mImageAddToPlaylist = (ImageView) itemView.findViewById(R.id.image_item_song_download);
+            mTextSongArtist.setOnClickListener(this);
+            mTextSongTitle.setOnClickListener(this);
+            mImageArtwork.setOnClickListener(this);
+            mImageAddToPlaylist.setOnClickListener(this);
+            itemView.findViewById(R.id.image_item_song_option).setOnClickListener(this);
         }
 
         public ViewHolder(@NonNull View view, OnLocalSongItemListener listener) {
             this(view);
             mItemListener = listener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.text_song_item_artist:
+                case R.id.text_song_item_title:
+                case R.id.image_song_item_artwork:
+                    mItemListener.onSongItemClick(getAdapterPosition());
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void bindData(Song song) {
