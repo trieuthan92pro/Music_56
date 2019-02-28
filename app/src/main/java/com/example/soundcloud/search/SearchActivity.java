@@ -215,10 +215,8 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     private void loadData() {
         mDatabaseHelper = HistorySearchDatabaseHelper.getInstance(this);
         mSearchHistoryRepository = new SearchHistoryRepository(mDatabaseHelper);
-        SongDataSource.RemoteDataSource remoteDataSource = new SongRemoteDataSource();
-        SongDataSource.LocalDataSource localDataSource = new SongLocalDataSource(getContentResolver());
         mPresenter = new SearchPresenter(mSearchHistoryRepository, this,
-                SongRepository.getInstance(remoteDataSource, localDataSource));
+                SongRepository.getInstance());
         showSearchResultGroup(false);
         isUpdateHistory = false;
         mPresenter.start();
