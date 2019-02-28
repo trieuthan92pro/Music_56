@@ -1,5 +1,7 @@
 package com.example.soundcloud.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +23,10 @@ public class HomeActivity extends AppCompatActivity
     private TabLayout mTabLayout;
     private HomeScreenContract.Presenter mPresenter;
     private Toolbar mToolbar;
+
+    public static Intent getIntent(Context context) {
+        return new Intent(context, HomeActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
