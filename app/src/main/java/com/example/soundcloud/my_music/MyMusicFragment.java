@@ -20,10 +20,7 @@ import android.widget.TextView;
 
 import com.example.soundcloud.R;
 import com.example.soundcloud.data.model.Genre;
-import com.example.soundcloud.data.source.SongDataSource;
 import com.example.soundcloud.data.source.SongRepository;
-import com.example.soundcloud.data.source.local.SongLocalDataSource;
-import com.example.soundcloud.data.source.remote.SongRemoteDataSource;
 import com.example.soundcloud.play_detail.PlayDetailActivity;
 
 public class MyMusicFragment extends Fragment implements MyMusicContract.View,
@@ -110,12 +107,17 @@ public class MyMusicFragment extends Fragment implements MyMusicContract.View,
 
     @Override
     public void onSongItemClick(int position) {
-
+        getContext().startActivity(PlayDetailActivity.getIntent(getContext(), mPresenter.getGenre(), position));
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.image_folder:
+            case R.id.text_downloaded_song:
+                checkPermission();
+                break;
+        }
     }
 
     private void addAction() {
